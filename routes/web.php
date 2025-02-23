@@ -14,5 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('accueil.home');
+})->name('app_accueil');
+
+Route::get('/about', function () {
+    return view('accueil.about');
+})->name('app_about');
+
+Route::get('/acheter', function () {
+    return view('accueil.acheter');
+})->name('app_acheter');
+
+Route::get('/louer', function () {
+    return view('accueil.louer');
+})->name('app_louer');
+
+Route::get('/connexion', function () {
+    return view('accueil.connexion');
+})->name('app_connexion');
