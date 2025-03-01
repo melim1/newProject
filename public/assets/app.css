@@ -1,1 +1,30 @@
 @import "./lib/bootstrap/css/bootstrap.css";
+
+.carousel-img {
+    max-height: 300px; /* Ajuste cette valeur selon tes besoins */
+    object-fit: cover; /* Garde les proportions en remplissant l'espace */
+}
+.custom-bg {
+    background-color: #007bff; /* Remplace par ta couleur */
+    border-radius: 5px; /* Arrondi les coins */
+
+}
+
+.custom-bg:hover {
+    background-color: #0056b3; /* Couleur plus foncée au survol */
+}
+.availability-form{
+    margin-top: -50px;
+    z-index: 2;
+    position: relative;
+}
+@media screen and (max-width: 575px) {
+    .availability-form{
+        margin-top: 25px;
+        padding:0 35px  ;
+
+    }
+
+}
+
+
