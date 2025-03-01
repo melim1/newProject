@@ -23,6 +23,9 @@
           <li class="nav-item me-1">
             <a class="nav-link @if(Request::route()->getName() == 'app_connexion') active @endif" href="{{  route('app_connexion') }}">Connexion</a>
           </li>
+          <li class="nav-item me-1">
+            <a class="nav-link @if(Request::route()->getName() == 'app_inscription') active @endif" href="{{  route('app_inscription') }}">Inscription</a>
+          </li>
 
         </ul>
       </div>

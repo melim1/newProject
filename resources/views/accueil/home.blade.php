@@ -18,6 +18,7 @@
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('assets/app.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     </head>
     <body class="bg-light">
@@ -110,8 +111,35 @@
                           <h5 class="card-title">Première maison</h5>
                           <h6 class="mb-4">1000000 DA</h6>
 
-                          <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Fusce auctor, felis et suscipit consequat, erat orci rhoncus nunc, nec sodales risus ex in sapien. Suspendisse potenti. Mauris ut metus et ligula vehicula euismod. Sed auctor, felis nec pretium interdum, sapien eros tincidunt ligula.</p>
-                          <a href="#" class="btn btn-primary">Go somewhere</a>
+                          <div class="caractéristiques mb-4">
+                            <h6 class="mb-1">Caractéristiques</h6>
+                            <span class="badge rounded-pill bg-light text-dark text-wrap">
+                                4 chambres
+                            </span>
+                            <span class="badge rounded-pill bg-light text-dark text-wrap">
+                                100 mètre carrée
+                            </span>
+                            <span class="badge rounded-pill bg-light text-dark text-wrap">
+                                Rue les oliviers
+                            </span>
+
+
+                          </div>
+                          <div class="rating mb-4">
+                            <h6 class="mb-1">Avis</h6>
+                            <span class="badge rounded-pill bg-light">
+                                <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            <i class="bi bi-star-fill text-warning"></i>
+                            </span>
+                          </div>
+
+                          <div class="d-flex justify-content-evenly mb-2 ">
+                            <a href="#" class="btn btn-sm text-white custom-bg shadow-none">Consultez maintenant</a>
+                          </div>
+
+
                         </div>
                       </div>
                 </div>

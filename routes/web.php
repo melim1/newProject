@@ -32,3 +32,7 @@ Route::get('/louer', function () {
 Route::get('/connexion', function () {
     return view('accueil.connexion');
 })->name('app_connexion');
+
+Route::get('/inscription', function () {
+    return view('accueil.inscription');
+})->name('app_inscription');
