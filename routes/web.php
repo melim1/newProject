@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\user\ProfileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,3 +37,13 @@ Route::get('/connexion', function () {
 Route::get('/inscription', function () {
     return view('accueil.inscription');
 })->name('app_inscription');
+
+Auth::routes();
+
+/*Route::middleware(['auth'])->group(function () {
+    Route::get('user/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('user/profile', [ProfileController::class, 'update'])->name('profile.update');
+});*/
+#route::get('user/profile',[ProfileController::class,'index'])->name('user.profile');
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

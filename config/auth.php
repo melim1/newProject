@@ -2,6 +2,9 @@
 
 return [
 
+
+
+
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
@@ -10,8 +13,26 @@ return [
     | This option controls the default authentication "guard" and password
     | reset options for your application. You may change these defaults
     | as required, but they're a perfect start for most applications.
-    |
-    */
+
+*/
+
+    [
+    "user"=>[
+        "id"=>1,
+        "name"=>"katia"
+    ],
+/*
+        "admin"=>[
+        "id"=>1,
+        "name"=>"melli"],
+
+*/
+        ],
+
+
+
+
+
 
     'defaults' => [
         'guard' => 'web',
@@ -40,6 +61,11 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+      /*  'admin' => [
+            'driver' => 'session',
+            'provider' => 'admins',
+        ],*/
     ],
 
     /*
@@ -64,6 +90,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
+        /*
+        'admin' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\admin::class,
+        ],*/
 
         // 'users' => [
         //     'driver' => 'database',
@@ -93,9 +124,17 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+          /*
+        'Admins' => [
+            'provider' => 'Admin',
+            'table' => 'Admin_password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+*/
     ],
 
-    /*
+/*
     |--------------------------------------------------------------------------
     | Password Confirmation Timeout
     |--------------------------------------------------------------------------
