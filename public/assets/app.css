@@ -6,12 +6,13 @@
 }
 .custom-bg {
     background-color: #007bff; /* Remplace par ta couleur */
-    border-radius: 5px; /* Arrondi les coins */
+    border: 1px solid #007bff;
 
 }
 
 .custom-bg:hover {
     background-color: #0056b3; /* Couleur plus foncée au survol */
+    border-color: #0056b3;
 }
 .availability-form{
     margin-top: -50px;
