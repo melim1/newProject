@@ -20,11 +20,14 @@
           <li class="nav-item me-4">
             <a class="nav-link @if(Request::route()->getName() == 'app_about') active @endif" href="{{ route('app_about') }}">À propos</a>
           </li>
-          <li class="nav-item me-4">
+          <li class="nav-item me-1">
             <a class="nav-link @if(Request::route()->getName() == 'app_connexion') active @endif" href="{{  route('app_connexion') }}">Connexion</a>
           </li>
           <li class="nav-item me-1">
             <a class="nav-link @if(Request::route()->getName() == 'app_inscription') active @endif" href="{{  route('app_inscription') }}">Inscription</a>
+          </li>
+          <li class="nav-item me-1">
+            <a class="nav-link @if(Request::route()->getName() == 'app_profil') active @endif" href="{{  route('app_profil') }}">Profil</a>
           </li>
 
         </ul>
