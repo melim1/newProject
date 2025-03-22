@@ -200,8 +200,13 @@
             </a>
             @role('Admin')
             <a href="{{ route('users.index') }}"><i class="fas fa-users"></i> Manage Users</a>
-            <a href="{{ route('roles.index') }}"><i class="fas fa-user-tag"></i> Manage Roles</a>
-            @endrole
+          
+          
+            <a href="{{ route('rdvs.index') }}">
+    <i class="fas fa-user-tag"></i> Manage Rdvs
+</a>
+
+@endrole
             <a href="{{ route('immobiliers.index') }}"><i class="fas fa-building"></i> Manage Immobilier</a>
             @role('Admin')
             <div class="has-submenu">

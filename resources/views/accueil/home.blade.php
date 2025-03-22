@@ -1,39 +1,9 @@
-@extends('welcome')
+@extends('layouts/app')
 @section('title', 'Accueil')
 
 @section('content')
 
-
-@endsection
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>@yield('title')</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
-
-        <!-- Styles -->
-        <link rel="stylesheet" href="{{ asset('assets/app.css') }}">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    </head>
-    <body class="bg-light">
-
-         {{-- Barre de navigation --}}
-         @include('navbar/navbar')
-
-         {{-- Nos scripts JS --}}
-         @include('script')
-
-
-
-
-
-            <!-- caroussel-->
+    <!-- caroussel-->
         <div class="container-fluid px-lg-4 mt-4">
             <div class="swiper swiper-container">
                 <div class="swiper-wrapper">
@@ -378,8 +348,17 @@
 
         </script>
 
-    </body>
-</html>
+<link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+<!-- Styles -->
+<link rel="stylesheet" href="{{ asset('assets/app.css') }}">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 
 
+
+
+@endsection
+
+        

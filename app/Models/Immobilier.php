@@ -11,4 +11,19 @@ class Immobilier extends Model
 
     protected $fillable = ['adresse', 'type', 'prix', 'surface', 'user_image', 'description'];
 
+
+
+
+    // Relation avec les commentaires
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
+
+    public function rendezVous()
+    {
+        return $this->hasMany(RendezVous::class);
+    }
+    
 }

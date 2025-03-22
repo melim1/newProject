@@ -28,12 +28,14 @@ class ImmobilierController extends Controller
      */
     public function index(): View
     {
-        $immobiliers = Immobilier::latest()->paginate(5);
+        $immobiliers = Immobilier::latest()->paginate(12);
 
         return view('immobiliers.index', compact('immobiliers'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
+
+    
     /**
      * Show the form for creating a new resource.
      *
@@ -185,4 +187,85 @@ class ImmobilierController extends Controller
         // Retourne à la page d'index avec un message de succès
         return redirect()->route('immobiliers.index')->with('success', 'Immobilier supprimé avec succès');
     }
+
+
+
+
+
+
+
+
+
+    public function acheter()
+    {
+        // Récupérer les biens de type "achat" en utilisant le champ existant
+        $immobiliers = Immobilier::where('type', 'achat')->get();
+
+        // Passer les données à la vue
+        return view('accueil.acheter', compact('immobiliers'));
+    }
+
+
+
+    public function louer()
+    {
+        // Récupérer les biens de type "location"
+        $immobiliers = Immobilier::where('type', 'location')->get();
+    
+        // Passer les données à la vue
+        return view('accueil.louer', compact('immobiliers'));
+    }
+
+
+
+
+    /**
+ * Affiche les détails d'un bien immobilier pour la vente.
+ *
+ * @param  int  $id
+ * @return \Illuminate\View\View
+ */
+public function venteDetail($id): View
+{
+    // Récupère le bien immobilier par son ID
+    $immobilier = Immobilier::findOrFail($id);
+
+    // Retourne la vue avec les détails du bien immobilier
+    return view('vente.detail', compact('immobilier'));
+}
+
+
+
+public function louerDetail($id): View
+{
+    // Récupère le bien immobilier par son ID
+    $immobilier = Immobilier::findOrFail($id);
+
+    // Retourne la vue avec les détails du bien immobilier
+    return view('louer.detail', compact('immobilier'));
+}
+
+
+
+/**
+ * Affiche le formulaire pour prendre un rendez-vous.
+
+ * Affiche le formulaire pour envoyer une demande de rendez-vous.
+ *
+ * @param  int  $id
+ * @return \Illuminate\View\View
+ */
+public function prendreRdv($id): View
+{
+    // Récupère le bien immobilier par son ID
+    $immobilier = Immobilier::findOrFail($id);
+
+    // Retourne la vue pour envoyer une demande de rendez-vous
+    return view('rdv.create', compact('immobilier'));
+}
+
+
+
+
+
 }
