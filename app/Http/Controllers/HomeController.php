@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Immobilier;
 use App\Models\User;
+use App\Models\RendezVous;
+
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -28,11 +30,15 @@ class HomeController extends Controller
 
         // Statistiques des utilisateurs (si nécessaire)
         $totalUsers = User::count();
+
+        $totalrndv = RendezVous::count();
+
        
 
         return view('home', compact(
             'totalImmobiliers', // Nombre total de biens immobiliers
             'totalUsers',
+            'totalrndv',
                       
 
         ));
