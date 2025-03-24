@@ -109,6 +109,8 @@ class RendezVousController extends Controller
         if ($request->statut === 'validé') {
             // Vous pouvez également envoyer un e-mail ici si besoin
             $rendezVous->user->notify(new \App\Notifications\RendezVousAccepted($rendezVous));
+            Mail::to($rendezVous->email)->send(new \App\Mail\RendezVousStatusUpdated($rendezVous));
+
         } elseif ($request->statut === 'refusé') {
             // Par exemple, envoyer un e-mail de refus
             Mail::to($rendezVous->email)->send(new \App\Mail\RendezVousRefused($rendezVous));

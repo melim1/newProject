@@ -381,8 +381,10 @@
         </div>
       </div>
       <div class="card-buttons">
-        <button id="btn-3d" class="btn btn-primary btn-3d">Show 3D</button>
-        <button id="btn-cancel" class="btn btn-cancel">Annuler</button>
+      <a href="{{ route('3Dshow', ['id' => $immobilier->id]) }}" class="btn btn-primary">
+    <i class="fas fa-vr-cardboard"></i> Visite 3D
+</a>
+
         <a href="{{ route('app_louer') }}" class="btn btn-primary">Retour à la liste</a>
         <button id="btn-rdv" class="btn btn-primary">Demander un rendez-vous</button>
       </div>
@@ -491,21 +493,7 @@
         });
       });
 
-      // Mode plein écran pour la carte
-      const card = document.getElementById('card');
-      const btn3D = document.getElementById('btn-3d');
-      const btnCancel = document.getElementById('btn-cancel');
-      btn3D.addEventListener('click', () => {
-        card.classList.add('fullscreen-mode');
-        btn3D.style.display = 'none';
-        btnCancel.style.display = 'block';
-      });
-      btnCancel.addEventListener('click', () => {
-        card.classList.remove('fullscreen-mode');
-        btn3D.style.display = 'block';
-        btnCancel.style.display = 'none';
-      });
-
+    
       // Gestion de la modification des commentaires
       document.querySelectorAll('.edit-comment').forEach(button => {
         button.addEventListener('click', () => {

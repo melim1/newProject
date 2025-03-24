@@ -18,11 +18,7 @@
             <p>Merci de votre compréhension.</p>
         </div>
 
-        <!-- Pied de page -->
-        <div style="text-align: center; padding-top: 20px; border-top: 1px solid #eeeeee; font-size: 14px; color: #777777;">
-            <p>Cet e-mail a été envoyé automatiquement. Veuillez ne pas y répondre.</p>
-            <p>Visitez notre site : <a href="https://votresite.com" style="color: #17a2b8; text-decoration: none;">https://votresite.com</a></p>
-        </div>
+      
     </div>
 </body>
 </html>

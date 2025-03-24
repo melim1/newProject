@@ -32,7 +32,7 @@ class RendezVousRefused extends Mailable
      */
     public function build()
     {
-        return $this->subject('Votre demande de rendez-vous a été refusée')
+        return $this->subject('Votre rendez-vous a été refusée')
             ->view('emails.rendezvous_refused'); // Vue de l'e-mail de refus
     }
 }
