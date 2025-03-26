@@ -22,7 +22,12 @@
       padding: 0;
     }
     .container {
-      padding: 2rem;
+      display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  align-items: flex-start; /* Aligner en haut */
+
+  
     }
     /* Carte immobilière */
     .card {
@@ -30,82 +35,60 @@
       border-radius: 5px;
       overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      background-color:white;
       backdrop-filter: blur(10px);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      width: 90%;
-      margin: auto;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      width: 60%;
+      margin: 0;
+      flex-shrink: 0;
+      
     }
     .card:hover {
       transform: translateY(-10px);
       box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
     }
-    .card-body {
-      display: flex;
-      padding: 2rem;
-    }
-    .card-img-container {
-      flex: 3;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+    .card-body { padding: 0.5rem; }
+    .card-img-container { text-align: center; }
     .card img {
-      width: 100%;
-      max-height: 400px;
+      width: 90%;
+      height: 490px;
       object-fit: cover;
-      border-radius: 15px;
+      border-radius: 10px;
       transition: transform 0.3s ease;
     }
-    .card img:hover {
-      transform: scale(1.05);
-    }
-    .card-info {
-      flex: 2;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding-left: 2rem;
-    }
+    .card img:hover { transform: scale(1.05); }
+    .card-info { margin-top: 0.7rem; }
     .caracteristiques-title {
-      font-size: 1.5rem;
-      font-weight: 700;
+      font-size: 1rem;
+      font-weight: 600;
       color: #4e79a7;
       text-align: center;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1rem;
       border-bottom: 2px solid #4e79a7;
-      padding-bottom: 0.5rem;
+      padding-bottom: 0.3rem;
     }
     .price-surface {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.5rem;
-    }
-    .description {
-      text-align: center;
-      margin-top: 1.5rem;
-    }
-    .card-text {
-      font-size: 1rem;
-      color: #555;
       margin-bottom: 1rem;
     }
-    .card-text strong {
-      color: #333;
-    }
+    .description { text-align: center; margin-top: 0.3rem; }
+    .card-text { font-size: 0.8rem; color: #555; margin-bottom: 1rem; }
+    .card-text strong { color: #333; }
     /* Boutons */
     .card-buttons {
       display: flex;
       justify-content: center;
-      gap: 10px;
+      align-items: center;
+      gap: 1rem;
       margin-top: 2rem;
     }
     .btn-primary {
       background-color: #4e79a7;
       border: none;
-      border-radius: 30px;
-      padding: 10px 20px;
+      border-radius: 20px;
+      padding: 4px 5px;
       font-size: 1rem;
       display: flex;
       align-items: center;
@@ -153,13 +136,14 @@
       background-color: #ff6b81;
       transform: scale(1.05);
     }
+
     /* Modal pour RDV */
     #overlay {
       display: none;
       position: fixed;
       top: 0; left: 0;
       width: 100%;
-      height: 100%;
+      height: 70%;
       background: rgba(0, 0, 0, 0.5);
       z-index: 1000;
     }
@@ -171,42 +155,77 @@
       background: white;
       padding: 2rem;
       border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       z-index: 1001;
       width: 400px;
-      max-width: 90%;
+      max-width: 60%;
+      /* Supprimez height si non nécessaire pour un centrage optimal */
     }
     .modal input, .modal textarea {
       width: 100%;
-      padding: 10px;
-      margin: 5px 0;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 16px;
+  padding: 12px 15px;
+  margin-bottom: 1.2rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  background-color: #f8fafc;
     }
-    .form-buttons {
+
+
+    .modal input:focus, .modal textarea :focus{
+      outline: none;
+  border-color: #4e79a7;
+  box-shadow: 0 0 0 3px rgba(78, 121, 167, 0.1);
+  background-color: white;
+}
+
+
+   
+.form-buttons {
       display: flex;
       justify-content: space-between;
       margin-top: 10px;
+      gap:1rem;
     }
     #rdv-form .form-buttons button {
-      padding: 0.5rem 1rem;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+      flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+      
     }
-    #rdv-form .form-buttons button[type="submit"] { background-color: #4e79a7; color: white; }
-    #rdv-form .form-buttons button[type="button"] { background-color: #ff4757; color: white; }
+    #rdv-form .form-buttons button[type="submit"] { background-color: #4e79a7; color: white;border: none; }
+    #rdv-form .form-buttons button[type="button"] { background-color: #ff4757; color: white;border: none; }
+    
+    #rdv-form .form-buttons button[type="submit"]:hover{
+      background-color: #3c6a9a;
+  transform: translateY(-1px);
+    }
+    
+    #rdv-form .form-buttons button[type="button"]:hover{
+      background-color: white;
+      background-color:rgb(146, 68, 75);
+      border-color: #ff4757;
+    }
+    
+
     /* Section des commentaires */
-    .comments-section {
-      width: 100%;
-      padding: 1rem;
-      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-      height: 80vh;
-      overflow-y: auto;
-    }
+     .comments-section {
+      width: 40%;
+      position: sticky;
+  top: 20px; /* Rester visible au scroll */
+  height: 86vh ; /* Hauteur de l'écran moins le padding */
+  overflow-y: auto;
+  padding: 1rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+
+}
     .comments-section h2 {
       font-size: 1.25rem;
       font-weight: 700;
@@ -216,59 +235,79 @@
       text-transform: uppercase;
       letter-spacing: 1px;
     }
+  
     .comment-form {
       margin-bottom: 1rem;
       text-align: center;
     }
     .comment-form textarea {
-      width: 90%;
-      padding: 0.75rem;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      font-family: 'Nunito', sans-serif;
-      font-size: 0.9rem;
-      resize: vertical;
-      background: white;
-      transition: border-color 0.3s ease;
-      min-height: 100px;
-    }
-    .comment-form textarea:focus { outline: none; border-color: #4e79a7; }
+  width: 100%;
+  padding: 8px 12px; /* Réduit le padding */
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  font-size: 0.85rem; /* Taille de police légèrement réduite */
+  background-color: #f8fafc;
+  transition: all 0.3s ease;
+  min-height: 80px; /* Hauteur minimale réduite */
+  max-height: 120px; /* Hauteur maximale si nécessaire */
+  line-height: 1.4; /* Interligne ajusté */
+  transform: scale(0.98);
+  transition: all 0.2s ease;
+}
+    .comment-form textarea:focus { outline: none; border-color: #4e79a7; box-shadow: 0 0 0 3px rgba(78, 121, 167, 0.1);
+      background-color: white;
+      transform: scale(1);
+      padding: 8px 12px; }
+
+   
     .comment-form button[type="submit"] {
-      margin-top: 0.5rem;
-      background-color: #4e79a7;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 0.75rem 1.5rem;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .comment-form button[type="submit"]:hover { background-color: #357ab7; }
+   background-color: #4e79a7;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease; }
+    .comment-form button[type="submit"]:hover { background-color: #357ab7;  transform: translateY(-1px);}
     .comment-list { display: grid; gap: 1rem; }
     .comment {
-      background: #f8f9fa;
-      padding: 1rem;
-      border-radius: 8px;
-      border: 1px solid #e2e8f0;
-      position: relative;
-      transition: background 0.3s ease;
-    }
-    .comment:hover { background: #f1f1f1; }
-    .comment-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 0.5rem;
-    }
-    .comment-author { font-weight: 600; color: #4e79a7; font-size: 0.9rem; }
-    .comment-date { font-size: 0.8rem; color: #64748b; }
-    .comment-content {
-      font-size: 0.9rem;
-      color: #555;
-      line-height: 1.5;
-      margin-bottom: 0.5rem;
-    }
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.comment:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.comment-author {
+  font-weight: 600;
+  color:rgb(32, 72, 140);
+  font-size: 0.95rem;
+}
+
+.comment-date {
+  font-size: 0.85rem;
+  color: #718096;
+}
+
+.comment-content {
+  color: #4a5568;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
     /* Dropdown menu pour actions sur commentaire */
     .comment-menu-container {
       position: relative;
@@ -282,66 +321,123 @@
       color: #4e79a7;
     }
     .comment-menu-options {
-      display: none;
-      position: absolute;
-      right: 0;
-      background: white;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      z-index: 10;
-    }
-    .comment-menu-options button {
-      display: block;
-      width: 100%;
-      border: none;
-      background: none;
-      padding: 8px 12px;
-      text-align: left;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .comment-menu-options button:hover { background: #f0f0f0; }
-    /* Formulaire de modification de commentaire */
-    .edit-comment-form {
-      display: none;
-      margin-top: 0.5rem;
-    }
-    .edit-comment-form textarea {
-      width: 100%;
-      padding: 0.5rem;
-      border: 1px solid #e2e8f0;
-      border-radius: 4px;
-      font-family: 'Nunito', sans-serif;
-      font-size: 0.9rem;
-      resize: vertical;
-      background: white;
-      transition: border-color 0.3s ease;
-    }
-    .edit-comment-form textarea:focus { outline: none; border-color: #4e79a7; }
-    .edit-comment-form button[type="submit"] {
-      margin-top: 0.5rem;
-      background-color: #4e79a7;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 0.5rem 1rem;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .edit-comment-form button[type="submit"]:hover { background-color: #357ab7; }
-    .edit-comment-form .cancel-edit {
-      margin-left: 0.5rem;
-      background-color: #f8f9fa;
-      color: #4e79a7;
-      border: 1px solid #e2e8f0;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .edit-comment-form .cancel-edit:hover { background-color: #e2e8f0; }
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 10;
+  min-width: 120px;
+  overflow: hidden;
+}
 
+.comment-menu-options button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  border: none;
+  background: none;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.comment-menu-options button i {
+  width: 16px;
+  text-align: center;
+}
+
+.comment-menu-options button:hover { 
+  background: #f8fafc;
+  color: #4e79a7;
+}
+
+.comment-menu-options button.delete-comment:hover {
+  color: #ff4757;
+}
+
+/* Formulaire de modification amélioré */
+.edit-comment-form {
+  display: none;
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #f8fafc;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.edit-comment-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  resize: vertical;
+  min-height: 100px;
+  background: white;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.edit-comment-form textarea:focus { 
+  outline: none; 
+  border-color: #4e79a7;
+  box-shadow: 0 0 0 3px rgba(78, 121, 167, 0.1);
+}
+
+.edit-comment-form .form-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.edit-comment-form button[type="submit"] {
+  background-color: #4e79a7;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex: 1;
+}
+
+.edit-comment-form button[type="submit"]:hover { 
+  background-color: #3c6a9a;
+  transform: translateY(-1px);
+}
+
+.edit-comment-form .cancel-edit {
+  background-color: white;
+  color: #4e79a7;
+  border: 1px solid #e2e8f0;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+  flex: 1;
+}
+
+.edit-comment-form .cancel-edit:hover { 
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+}
+  
     .message {
       margin: 1rem 0;
       padding: 0.75rem;
