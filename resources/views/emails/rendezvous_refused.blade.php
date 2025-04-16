@@ -13,16 +13,12 @@
         <!-- Contenu -->
         <div style="padding: 20px 0; color: #555555; font-size: 16px; line-height: 1.6;">
             <p>Bonjour <strong>{{ $rendezVous->nom_complet }}</strong>,</p>
-            <p>Nous regrettons de vous informer que votre demande de rendez-vous a été refusée.</p>
+            <p>Nous regrettons de vous informer que votre demande de rendez-vous a été refusée .</p>
             <p>Si vous avez des questions ou souhaitez plus d'informations, n'hésitez pas à nous contacter.</p>
             <p>Merci de votre compréhension.</p>
         </div>
 
-        <!-- Pied de page -->
-        <div style="text-align: center; padding-top: 20px; border-top: 1px solid #eeeeee; font-size: 14px; color: #777777;">
-            <p>Cet e-mail a été envoyé automatiquement. Veuillez ne pas y répondre.</p>
-            <p>Visitez notre site : <a href="https://votresite.com" style="color: #17a2b8; text-decoration: none;">https://votresite.com</a></p>
-        </div>
+      
     </div>
 </body>
 </html>

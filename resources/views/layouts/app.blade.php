@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,8 +19,7 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     <style>
-
-       body {
+        body {
             font-family: 'Roboto', sans-serif;
             background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
             color: #333;
@@ -56,7 +56,6 @@
             font-weight: 700;
         }
 
-
         /* Menu déroulant */
         .dropdown-menu {
             background: white;
@@ -65,42 +64,9 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-
         /* Contenu principal */
         main {
             padding: 2rem;
-        }
-
-
-a {
-    position: relative;
-    display: inline-block;
-}
-
- .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            width: 18px;
-            height: 20px;
-            background-color: red;
-            color: white;
-            border-radius: 50%;
-            padding: 2px 6px;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            font-weight: bold;
-            justify-content: center;
-            .nav-link::before,
-
-            *::before,
-*::after {
-    content: none ;
-}
-
-
-
         }
     </style>
 </head>
@@ -108,162 +74,103 @@ a {
 <body>
     <div id="app">
         <!-- Barre de navigation -->
-
-
-<!-- Barre de navigation -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white px-lg-3 py-lg-2 shadow-sm sticky-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Immobilier</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end pe-5" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item me-4">
-                    <a class="nav-link @if(Request::route()->getName() == 'app_accueil') active @endif" aria-current="page" href="{{ route('app_accueil') }}">
-                        <i class="fas fa-home"></i> Accueil
-                    </a>
-                </li>
-                <li class="nav-item me-4">
-                    <a class="nav-link @if(Request::route()->getName() == 'app_acheter') active @endif" href="{{ route('app_acheter') }}">
-                        <i class="fas fa-shopping-cart"></i> Acheter
-                    </a>
-                </li>
-                <li class="nav-item me-4">
-                    <a class="nav-link @if(Request::route()->getName() == 'app_louer') active @endif" href="{{ route('app_louer') }}">
-                        <i class="fas fa-hand-holding-usd"></i> Louer
-                    </a>
-                </li>
-                <li class="nav-item me-4">
-                    <a class="nav-link @if(Request::route()->getName() == 'app_about') active @endif" href="{{ route('app_about') }}">
-                        <i class="fas fa-info-circle"></i> À propos
-                    </a>
-                </li>
-
-
-                    <!-- Lien "Profil" visible uniquement pour les utilisateurs connectés -->
-                    @auth
-
-
-
-
-    <li class="nav-item">
-      <a class="nav-link @if(Request::route()->getName() == 'app_historique') active @endif" href="{{ route('app_historique') }}">
-        <i class="fas fa-user"></i> Historique
-      </a>
-    </li
-
-            <!-- Ajout du champ Messages -->
-  <
-
-<!--<li class="nav-item">
-    <a class="nav-link nav-icon" href="{{ route('messagerie') }}">
-        <i class="fas fa-envelope"></i>
-        <span class="notification-badge">0</span>
-
-    </a>
-</li>-->
-<li class="nav-item">
-    <a class="nav-link nav-icon" href="{{ route('messagerie') }}">
-        <i class="fas fa-envelope"></i>
-
-        @if($unseenCounter > 0)
-            <span class="notification-badge">{{ $unseenCounter }}</span>
-        @endif
-    </a>
-</li>
-
-
-
-
-
-    <li class="nav-item dropdown">
-      <a class="nav-link" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="fas fa-bell"></i>
-        @if(Auth::user()->unreadNotifications->count() > 0)
-          <span class="badge bg-danger" id="notificationCount">
-            {{ Auth::user()->unreadNotifications->count() }}
-          </span>
-        @endif
-      </a>
-      <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown" style="min-width: 300px;">
-  @if(Auth::user()->unreadNotifications->count() > 0)
-    @foreach(Auth::user()->unreadNotifications as $notification)
-      <li class="dropdown-item">
-        <a href="#"
-           class="notification-link"
-           data-notification-id="{{ $notification->id }}"
-           data-url="{{ $notification->data['url'] ?? '#' }}">
-          {{ $notification->data['message'] ?? 'Vous avez une notification.' }}
-        </a>
-      </li>
-    @endforeach
-    <li><hr class="dropdown-divider"></li>
-    <li>
-      <a class="dropdown-item" href="#" id="markAllAsRead">
-        Marquer toutes comme lues
-      </a>
-    </li>
-  @else
-    <li class="dropdown-item text-muted">Aucune notification.</li>
-  @endif
-</ul>
-
-    </li>
-  </ul>
-
-
-
-  </li>
-
-
-
-
-
-
-
-                        <li class="nav-item">
-                            <a class="nav-link @if(Request::route()->getName() == 'app_profil') active @endif" href="{{ route('app_profil') }}">
-                                <i class="fas fa-user"></i> Profil
+        <nav class="navbar navbar-expand-lg navbar-light bg-white px-lg-3 py-lg-2 shadow-sm sticky-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Immobilier</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end pe-5" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item me-4">
+                            <a class="nav-link @if(Request::route()->getName() == 'app_accueil') active @endif"
+                                aria-current="page" href="{{ route('app_accueil') }}">
+                                <i class="fas fa-home"></i> Accueil
+                            </a>
+                        </li>
+                        <li class="nav-item me-4">
+                            <a class="nav-link @if(Request::route()->getName() == 'app_acheter') active @endif"
+                                href="{{ route('app_acheter') }}">
+                                <i class="fas fa-shopping-cart"></i> Acheter
+                            </a>
+                        </li>
+                        <li class="nav-item me-4">
+                            <a class="nav-link @if(Request::route()->getName() == 'app_louer') active @endif"
+                                href="{{ route('app_louer') }}">
+                                <i class="fas fa-hand-holding-usd"></i> Louer
+                            </a>
+                        </li>
+                        <li class="nav-item me-4">
+                            <a class="nav-link @if(Request::route()->getName() == 'app_about') active @endif"
+                                href="{{ route('app_about') }}">
+                                <i class="fas fa-info-circle"></i> À propos
                             </a>
                         </li>
 
+                        <!-- Lien "Profil" visible uniquement pour les utilisateurs connectés -->
+                        @auth
+                            <li class="nav-item me-4">
+                                <a class="nav-link @if(Request::route()->getName() == 'app_historique') active @endif"
+                                    href="{{ route('app_historique') }}">
+                                    <i class="fas fa-user"></i> Historique
+                                </a>
+                            </li>
+                            
+                            <li class="nav-item dropdown me-4">
+                                <a class="nav-link" href="#" id="notificationDropdown" role="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-bell"></i> Notification
+                                    @if(Auth::user()->unreadNotifications->count() > 0)
+                                        <span class="badge bg-danger" id="notificationCount">
+                                            {{ Auth::user()->unreadNotifications->count() }}
+                                        </span>
+                                    @endif
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown"
+                                    style="min-width: 300px;">
+                                    @if(Auth::user()->unreadNotifications->count() > 0)
+                                        @foreach(Auth::user()->unreadNotifications as $notification)
+                                            <li class="dropdown-item">
+                                                <a href="#" class="notification-link" data-notification-id="{{ $notification->id }}"
+                                                    data-url="{{ $notification->data['url'] ?? '#' }}">
+                                                    {{ $notification->data['message'] ?? 'Vous avez une notification.' }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#" id="markAllAsRead">
+                                                Marquer toutes comme lues
+                                            </a>
+                                        </li>
+                                    @else
+                                        <li class="dropdown-item text-muted">Aucune notification.</li>
+                                    @endif
+                                </ul>
+                            </li>
 
+                            <li class="nav-item">
+                                <a class="nav-link @if(Request::route()->getName() == 'app_profil') active @endif"
+                                    href="{{ route('app_profil') }}">
+                                    <i class="fas fa-user"></i> Profil
+                                </a>
+                            </li>
+                        @endauth
 
-                    @endauth
-
-                    <!-- Lien "Se connecter" visible uniquement pour les utilisateurs non connectés -->
-                    @guest
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">
-                                <i class="fas fa-sign-in-alt"></i> Se connecter
-                            </a>
-                        </li>
-                    @endguest
-                </ul>
-            </div>
-
-            <!-- Menu déroulant pour les utilisateurs connectés -->
-         <!--    @auth
-                <div class="dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{ Auth::user()->name }}
-                    </a>
-
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="{{ route('logout') }}"
-                           onclick="event.preventDefault();
-                                         document.getElementById('logout-form').submit();">
-                            {{ __('Déconnexion') }}
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                            @csrf
-                        </form>
-                    </div>
+                        <!-- Lien "Se connecter" visible uniquement pour les utilisateurs non connectés -->
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login') }}">
+                                    <i class="fas fa-sign-in-alt"></i> Se connecter
+                                </a>
+                            </li>
+                        @endguest
+                    </ul>
                 </div>
-            @endauth
-            -->
+            </div>
         </nav>
 
         <!-- Contenu principal -->
@@ -271,41 +178,6 @@ a {
             @yield('content')
         </main>
     </div>
+</body>
 
-    <script>
-        // Activer le log Pusher (à désactiver en production)
-        Pusher.logToConsole = true;
-
-        // Initialiser Pusher
-        var pusher = new Pusher('90772dc20eb20484a33c', {
-            cluster: 'mt1'
-        });
-
-        // S'abonner au canal
-        var channel = pusher.subscribe('my-channel');
-
-        // Réagir à l'événement 'my-event'
-        channel.bind('my-event', function(data) {
-            $.ajax({
-                type: 'GET',
-                url: '/updateunseenmessage',
-                success: function(data) {
-                    console.log(data.unseenCounter);
-
-                    var html = ``;
-
-                    if (data.unseenCounter > 0) {
-                        html += `<span style="right:68px;" class="pending-notification-chat">${data.unseenCounter}</span>`;
-                    }
-
-                    $('.pending-div').html(html);
-                },
-                error: function(xhr, status, error) {
-                    console.error("Erreur AJAX :", error);
-                }
-            });
-        });
-    </script>
-
-      </body>
 </html>

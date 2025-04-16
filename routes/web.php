@@ -50,6 +50,16 @@ Route::get('/louer', [ImmobilierController::class, 'louer'])->name('app_louer');
 Route::get('/louer/detail/{id}', [ImmobilierController::class, 'louerDetail'])->name('louer.detail');
 
 
+//3D
+
+use App\Models\Immobilier;
+
+Route::get('/vente/3Dshow/{id}', function ($id) {
+    $immobilier = Immobilier::findOrFail($id);
+    return view('/vente/3Dshow', compact('immobilier'));
+})->name('3Dshow');
+
+
 
 
 use App\Http\Controllers\CommentController;

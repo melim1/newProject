@@ -3,9 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\RendezVous;
+use App\Models\User;
+ 
+use Illuminate\Support\Facades\Notification;
+
+ 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View; 
+
+use App\Notifications\NouveauRendezVousNotification; // Import de votre notification
+use App\Notifications\RendezVousConfirmationNotification; // Si vous créez une notification de confirmation
+ 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RendezVousStatusUpdated; // Assurez-vous que cette classe est également importée
 use App\Mail\RendezVousRefused; 
@@ -14,7 +23,9 @@ use App\Notifications\RendezVousAccepted;
 
 class RendezVousController extends Controller
 {
-    public function store(Request $request)
+   
+   
+     public function store(Request $request)
     {
         // Valider les données
         $request->validate([
@@ -46,6 +57,7 @@ class RendezVousController extends Controller
                 auth()->id(),
                 $request->type,
             ]);
+            
     
             // Si la requête est AJAX, renvoyer du JSON
             if ($request->ajax()) {
@@ -56,12 +68,12 @@ class RendezVousController extends Controller
 
                 
             }
-    
+         
             return redirect()->back()->with('success', 'Votre demande de rendez-vous a été envoyée avec succès.');
         } catch (\Exception $e) {
             // En cas d'erreur, renvoyer un message d'erreur
             if ($request->ajax()) {
-                return response()->json([
+                return response()->json([ 
                     'success' => false,
                     'message' => 'Une erreur s\'est produite lors de l\'enregistrement de votre demande.'
                 ], 500);
@@ -69,7 +81,7 @@ class RendezVousController extends Controller
             return redirect()->back()->with('error', 'Une erreur s\'est produite lors de l\'enregistrement de votre demande.');
         }
     }
-
+ 
 
 
 
@@ -109,6 +121,8 @@ class RendezVousController extends Controller
         if ($request->statut === 'validé') {
             // Vous pouvez également envoyer un e-mail ici si besoin
             $rendezVous->user->notify(new \App\Notifications\RendezVousAccepted($rendezVous));
+            Mail::to($rendezVous->email)->send(new \App\Mail\RendezVousStatusUpdated($rendezVous));
+
         } elseif ($request->statut === 'refusé') {
             // Par exemple, envoyer un e-mail de refus
             Mail::to($rendezVous->email)->send(new \App\Mail\RendezVousRefused($rendezVous));

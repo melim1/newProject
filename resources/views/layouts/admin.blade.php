@@ -13,6 +13,8 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -22,171 +24,239 @@
 
     <!-- Custom CSS -->
     <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #1a252f;
+            --accent-color: #3498db;
+            --sidebar-bg: #2c3e50;
+            --navbar-bg: #ffffff;
+            --hover-color: #34495e;
+            --active-color: #3498db;
+            --text-light: #ecf0f1;
+            --text-dark: #2c3e50;
+            --success-color: #2ecc71;
+            --danger-color: #e74c3c;
+            --warning-color: #f39c12;
+        }
+
         body {
-            font-family: 'Nunito', sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fa;
+            color: var(--text-dark);
         }
 
-        .navbar {
-            background-color: #343a40 !important;
-        }
-
-        .navbar-brand {
-            color: #ffffff !important;
-            font-weight: bold;
-        }
-
-        .navbar-nav .nav-link {
-            color: #ffffff !important;
-        }
-
-        .navbar-nav .nav-link:hover {
-            color: #17a2b8 !important;
-        }
-
-        .dropdown-menu {
-            background-color: #343a40;
-        }
-
-        .dropdown-item {
-            color: #ffffff !important;
-        }
-
-        .dropdown-item:hover {
-            background-color: #17a2b8;
-            color: #ffffff !important;
-        }
-
-        .card {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .card-body {
-            padding: 2rem;
-        }
-
-        .btn-primary {
-            background-color: #17a2b8;
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background-color: #138496;
-        }
-
+        /* Sidebar Styles */
         .sidebar {
-            height: 100%;
-            width: 250px;
             position: fixed;
             top: 0;
             left: 0;
-            background-color: #343a40;
-            padding-top: 20px;
+            width: 280px;
+            height: 100vh;
+            background: var(--sidebar-bg);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
         }
 
-        .sidebar a {
-            padding: 10px 15px;
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem 1.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-brand .logo-icon {
+            font-size: 1.8rem;
+            color: var(--accent-color);
+            margin-right: 10px;
+        }
+
+        .sidebar-brand .logo-text {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .sidebar-menu {
+            padding: 0 1rem;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            margin-bottom: 0.5rem;
+            color: rgba(255, 255, 255, 0.9);
             text-decoration: none;
-            font-size: 18px;
-            color: #ffffff;
-            display: block;
+            border-radius: 6px;
+            transition: all 0.3s ease;
         }
 
-        .sidebar a:hover {
-            background-color: #17a2b8;
+        .sidebar-menu a:hover,
+        .sidebar-menu a.active {
+            background-color: var(--hover-color);
+            color: white;
+            transform: translateX(5px);
         }
 
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
+        .sidebar-menu a i {
+            font-size: 1.1rem;
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
         }
 
-        .welcome-message {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
+        /* Navbar Styles */
+        .main-navbar {
+            position: fixed;
+            top: 0;
+            left: 280px;
+            right: 0;
+            height: 70px;
+            background: var(--navbar-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+            z-index: 900;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .nav-item {
+            margin-left: 1.5rem;
+            position: relative;
+        }
+
+        .nav-icon {
+            font-size: 1.3rem;
+            color: #7f8c8d;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-icon:hover {
+            color: var(--accent-color);
         }
 
         .notification-badge {
             position: absolute;
             top: -5px;
             right: -5px;
-            background-color: #dc3545;
+            background-color: var(--danger-color);
             color: white;
             border-radius: 50%;
-            padding: 2px 6px;
-            font-size: 12px;
+            padding: 3px 7px;
+            font-size: 0.65rem;
+            font-weight: bold;
         }
 
-        .nav-icon {
-            font-size: 1.25rem;
-            margin-right: 15px;
-            color: white;
-            position: relative;
+        .user-dropdown {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
         }
 
-        .nav-icon:hover {
-            color: #17a2b8;
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+            border: 2px solid var(--accent-color);
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-right: 5px;
+        }
+
+        .dropdown-menu {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 0.5rem 0;
+            margin-top: 10px;
+        }
+
+        .dropdown-item {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: #f8f9fa;
+            color: var(--accent-color);
+        }
+
+        .dropdown-item i {
+            margin-right: 8px;
+            width: 18px;
+            text-align: center;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            margin-left: 280px;
+            padding: 90px 2rem 2rem;
+            min-height: 100vh;
+            transition: all 0.3s ease;
         }
 
         .card {
             border: none;
-            border-radius: 10px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            margin-bottom: 1.5rem;
+            background-color: white;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: transparent;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1.25rem 1.5rem;
+            border-radius: 12px 12px 0 0 !important;
         }
 
         .card-title {
-            font-size: 1.5rem;
-            /* Taille réduite */
-            font-weight: bold;
-            margin-bottom: 0.75rem;
-        }
-
-        .card-text {
-            font-size: 1rem;
-            /* Taille réduite */
-            font-weight: bold;
+            font-size: 1.25rem;
+            font-weight: 600;
             margin-bottom: 0;
+            color: var(--text-dark);
         }
 
-        .bg-primary {
-            background-color: #007bff !important;
-        }
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
 
-        .bg-success {
-            background-color: #28a745 !important;
-        }
+            .sidebar.active {
+                transform: translateX(0);
+            }
 
-        .bg-danger {
-            background-color: #dc3545 !important;
-        }
+            .main-navbar {
+                left: 0;
+            }
 
-        .bg-info {
-            background-color: #17a2b8 !important;
-        }
+            .main-content {
+                margin-left: 0;
+            }
 
-        .bg-warning {
-            background-color: #ffc107 !important;
-        }
-
-        .bg-secondary {
-            background-color: #6c757d !important;
-        }
-
-        .bg-immobilier {
-            background-color: rgba(46, 45, 48, 0.2) !important;
-        }
-
-        .bg-utilisateur {
-            background-color: rgba(122, 122, 122, 0.64) !important;
-
+            .navbar-toggler {
+                display: block;
+                margin-right: 1rem;
+            }
         }
     </style>
 </head>
@@ -195,119 +265,107 @@
     <div id="app">
         <!-- Sidebar -->
         <div class="sidebar">
-            <a href="{{ url('/home') }}" class="navbar-brand">
-                <i class="fas fa-home"></i> Dashboard
-            </a>
-            @role('Admin')
-            <a href="{{ route('users.index') }}"><i class="fas fa-users"></i> Manage Users</a>
+            <div class="sidebar-brand">
+                <div class="logo-icon"><i class="fas fa-home"></i></div>
+                <div class="logo-text">Tableau de bord</div>
+            </div>
 
-
-            <a href="{{ route('rdvs.index') }}">
-    <i class="fas fa-user-tag"></i> Manage Rdvs
-</a>
-
-@endrole
-            <a href="{{ route('immobiliers.index') }}"><i class="fas fa-building"></i> Manage Immobilier</a>
-            @role('Admin')
-            <div class="has-submenu">
-                <a href="{{ route('roles.index', ) }}">
-                    <i class="fas fa-cog"></i> Settings
+            <div class="sidebar-menu">
+                <a href="{{ url('/home') }}" class="active">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
                 </a>
 
+                @role('Admin')
+                <a href="{{ route('users.index') }}">
+                    <i class="fas fa-users-cog"></i>
+                    <span>Gérer Utilisateurs</span>
+                </a>
+
+                <a href="{{ route('rdvs.index') }}">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Rendez-vous</span>
+                </a>
+                @endrole
+
+                <a href="{{ route('immobiliers.index') }}">
+                    <i class="fas fa-building"></i>
+                    <span>Immobilier</span>
+                </a>
+
+           
             </div>
-            @endrole
         </div>
+
+        <!-- Navbar -->
+        <nav class="main-navbar navbar navbar-expand-lg">
+            <button class="navbar-toggler" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link nav-icon" href="#">
+                            <i class="fas fa-envelope"></i>
+                            <span class="notification-badge">3</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link nav-icon" href="#">
+                            <i class="fas fa-bell"></i>
+                            <span class="notification-badge">5</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <div class="user-dropdown" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://ui-avatars.com/api/?name={{ urlencode(Auth::user()->name) }}&background=3498db&color=fff"
+                                class="user-avatar">
+                            <span class="user-name">{{ Auth::user()->name }}</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{{ route('users.edit', Auth::user()->id) }}">
+                                    <i class="fas fa-user"></i> Profil
+                                </a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <i class="fas fa-sign-out-alt"></i> Déconnexion
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
         <!-- Main Content -->
         <div class="main-content">
-            <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <!-- Right Side Of Navbar -->
-                        <ul class="navbar-nav ms-auto">
-                            <!-- Messagerie -->
-                            <li class="nav-item">
-                                <a class="nav-link nav-icon" href="{{ route('messagerie') }}">
-                                    <i class="fas fa-envelope"></i>
-                                    <span class="notification-badge">3</span> <!-- Badge statique -->
-                                </a>
-                            </li>
-
-                            <!-- Notifications -->
-                            <li class="nav-item">
-                                <a class="nav-link nav-icon" href="#">
-                                    <i class="fas fa-bell"></i>
-                                    <span class="notification-badge">5</span>
-                                    <!-- Badge pour les notifications non lues -->
-                                </a>
-                            </li>
-
-                            <!-- Profil utilisateur -->
-                            @guest
-                                @if (Route::has('login'))
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                    </li>
-                                @endif
-
-                                @if (Route::has('register'))
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                    </li>
-                                @endif
-                            @else
-                                <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="" role="button"
-                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        <i class="fas fa-user"></i> {{ Auth::user()->name }}
-                                    </a>
-
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                     document.getElementById('logout-form').submit();">
-                                            <i class="fas fa-sign-out-alt"></i> {{ __('Logout') }}
-                                        </a>
-
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                            @csrf
-                                        </form>
-                                        <a class="dropdown-item" href="profilAdmin.edit" id="profile-link">
-                                            <i class="fas fa-user-circle"></i> Profil
-                                        </a>
-                                    </div>
-
-                                </li>
-                            @endguest
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-
             <main class="py-4">
                 <div class="container-fluid">
-                    <div class="welcome-message">
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    @yield('content')
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @yield('content')
                 </div>
             </main>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <script>
+        // Toggle sidebar on mobile
+        document.querySelector('.navbar-toggler').addEventListener('click', function () {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </body>
 
 </html>

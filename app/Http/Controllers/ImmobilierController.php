@@ -59,7 +59,7 @@ class ImmobilierController extends Controller
             "type" => 'required|max:255',
             "prix" => 'numeric',
             "surface" => 'numeric',
-            "user_image" => 'required|image|max:2048',
+            "user_image" => 'required|image',
              "description" => 'required|max:255',
         ]);
 
