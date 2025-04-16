@@ -18,7 +18,7 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     <style>
-       
+
        body {
             font-family: 'Roboto', sans-serif;
             background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
@@ -70,12 +70,45 @@
         main {
             padding: 2rem;
         }
+
+
+a {
+    position: relative;
+    display: inline-block;
+}
+
+ .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 18px;
+            height: 20px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            justify-content: center;
+            .nav-link::before,
+
+            *::before,
+*::after {
+    content: none ;
+}
+
+
+
+        }
     </style>
 </head>
+
 <body>
     <div id="app">
         <!-- Barre de navigation -->
-       
+
 
 <!-- Barre de navigation -->
 <nav class="navbar navbar-expand-lg navbar-light bg-white px-lg-3 py-lg-2 shadow-sm sticky-top">
@@ -107,18 +140,43 @@
                     </a>
                 </li>
 
-                
+
                     <!-- Lien "Profil" visible uniquement pour les utilisateurs connectés -->
                     @auth
 
 
-                   
+
 
     <li class="nav-item">
       <a class="nav-link @if(Request::route()->getName() == 'app_historique') active @endif" href="{{ route('app_historique') }}">
         <i class="fas fa-user"></i> Historique
       </a>
-    </li>
+    </li
+
+            <!-- Ajout du champ Messages -->
+  <
+
+<!--<li class="nav-item">
+    <a class="nav-link nav-icon" href="{{ route('messagerie') }}">
+        <i class="fas fa-envelope"></i>
+        <span class="notification-badge">0</span>
+
+    </a>
+</li>-->
+<li class="nav-item">
+    <a class="nav-link nav-icon" href="{{ route('messagerie') }}">
+        <i class="fas fa-envelope"></i>
+
+        @if($unseenCounter > 0)
+            <span class="notification-badge">{{ $unseenCounter }}</span>
+        @endif
+    </a>
+</li>
+
+
+
+
+
     <li class="nav-item dropdown">
       <a class="nav-link" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="fas fa-bell"></i>
@@ -132,9 +190,9 @@
   @if(Auth::user()->unreadNotifications->count() > 0)
     @foreach(Auth::user()->unreadNotifications as $notification)
       <li class="dropdown-item">
-        <a href="#" 
-           class="notification-link" 
-           data-notification-id="{{ $notification->id }}" 
+        <a href="#"
+           class="notification-link"
+           data-notification-id="{{ $notification->id }}"
            data-url="{{ $notification->data['url'] ?? '#' }}">
           {{ $notification->data['message'] ?? 'Vous avez une notification.' }}
         </a>
@@ -171,7 +229,7 @@
                         </li>
 
 
-                       
+
                     @endauth
 
                     <!-- Lien "Se connecter" visible uniquement pour les utilisateurs non connectés -->
@@ -213,5 +271,41 @@
             @yield('content')
         </main>
     </div>
-</body>
+
+    <script>
+        // Activer le log Pusher (à désactiver en production)
+        Pusher.logToConsole = true;
+
+        // Initialiser Pusher
+        var pusher = new Pusher('90772dc20eb20484a33c', {
+            cluster: 'mt1'
+        });
+
+        // S'abonner au canal
+        var channel = pusher.subscribe('my-channel');
+
+        // Réagir à l'événement 'my-event'
+        channel.bind('my-event', function(data) {
+            $.ajax({
+                type: 'GET',
+                url: '/updateunseenmessage',
+                success: function(data) {
+                    console.log(data.unseenCounter);
+
+                    var html = ``;
+
+                    if (data.unseenCounter > 0) {
+                        html += `<span style="right:68px;" class="pending-notification-chat">${data.unseenCounter}</span>`;
+                    }
+
+                    $('.pending-div').html(html);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Erreur AJAX :", error);
+                }
+            });
+        });
+    </script>
+
+      </body>
 </html>

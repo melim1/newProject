@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ImmobilierController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RoleController;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +21,10 @@ use App\Http\Controllers\RoleController;
 Route::get('/', function () {
     return view('accueil.home');
 })->name('app_accueil');
+
+
+
+
 
 Route::get('/about', function () {
     return view('accueil.about');
@@ -80,8 +85,19 @@ Route::get('/profil', [ProfilController::class, 'index'])->name('app_profil')->m
 use App\Http\Controllers\HistoriqueController;
 Route::get('/historique', [HistoriqueController::class, 'index'])->name('app_historique')->middleware('auth');
 
-use App\Http\Controllers\NotificationController;
 
+# Messages
+
+use Chatify\Http\Controllers\MessagesController;
+
+Route::get('/messagerie', [MessagesController::class, 'index'])->name('messagerie')->middleware('auth');
+
+
+
+
+
+
+use App\Http\Controllers\NotificationController;
 
 
 
@@ -143,4 +159,9 @@ Route::group(['middleware' => ['auth']], function() {
 Route::get('/homeee', function () {
     return view('accueil.home'); // Assurez-vous que le fichier 'home.blade.php' est dans 'resources/views/accueil'
 })->name('accueil.home');
- 
+
+
+
+//compter les messages non lus
+
+Route::get('/updateunseenmessage', [App\Http\Controllers\UserController::class, 'checkUnseenmessage']);

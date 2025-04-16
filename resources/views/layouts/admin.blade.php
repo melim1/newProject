@@ -200,8 +200,8 @@
             </a>
             @role('Admin')
             <a href="{{ route('users.index') }}"><i class="fas fa-users"></i> Manage Users</a>
-          
-          
+
+
             <a href="{{ route('rdvs.index') }}">
     <i class="fas fa-user-tag"></i> Manage Rdvs
 </a>
@@ -233,9 +233,9 @@
                         <ul class="navbar-nav ms-auto">
                             <!-- Messagerie -->
                             <li class="nav-item">
-                                <a class="nav-link nav-icon" href="#">
+                                <a class="nav-link nav-icon" href="{{ route('messagerie') }}">
                                     <i class="fas fa-envelope"></i>
-                                    <span class="notification-badge">3</span> <!-- Badge pour les messages non lus -->
+                                    <span class="notification-badge">3</span> <!-- Badge statique -->
                                 </a>
                             </li>
 
