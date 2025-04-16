@@ -144,7 +144,7 @@
             position: absolute;
             top: -5px;
             right: -5px;
-            background-color: var(--danger-color);
+            background-color: red;
             color: white;
             border-radius: 50%;
             padding: 3px 7px;
@@ -257,7 +257,11 @@
                 display: block;
                 margin-right: 1rem;
             }
-        }
+
+
+        
+
+        
     </style>
 </head>
 
@@ -333,6 +337,17 @@
                                 </a></li>
                             <li>
                                 <hr class="dropdown-divider">
+                            </li>
+
+
+                             <!-- Messagerie -->
+                             <li class="nav-item">
+                                <a class="nav-link nav-icon" href="{{ route('messagerie') }}">
+                                    <i class="fas fa-envelope"></i>
+                                            @if($unseenCounter > 0)
+                                          <span class="notification-badge">{{ $unseenCounter }}</span>
+                                           @endif
+                                </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="{{ route('logout') }}"

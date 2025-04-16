@@ -68,6 +68,25 @@
         main {
             padding: 2rem;
         }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 18px;
+            height: 20px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+            justify-content: center;
+        
+
+        }
     </style>
 </head>
 
@@ -108,6 +127,10 @@
                             </a>
                         </li>
 
+
+
+    
+
                         <!-- Lien "Profil" visible uniquement pour les utilisateurs connectés -->
                         @auth
                             <li class="nav-item me-4">
@@ -116,6 +139,9 @@
                                     <i class="fas fa-user"></i> Historique
                                 </a>
                             </li>
+
+
+                            
                             
                             <li class="nav-item dropdown me-4">
                                 <a class="nav-link" href="#" id="notificationDropdown" role="button"
@@ -152,6 +178,16 @@
                                 </ul>
                             </li>
 
+
+                            <li class="nav-item">
+                                <a class="nav-link nav-icon" href="{{ route('messagerie') }}">
+                                    <i class="fas fa-envelope"></i>
+                            
+                                    @if($unseenCounter > 0)
+                                        <span class="notification-badge">{{ $unseenCounter }}</span>
+                                    @endif
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link @if(Request::route()->getName() == 'app_profil') active @endif"
                                     href="{{ route('app_profil') }}">
@@ -178,6 +214,44 @@
             @yield('content')
         </main>
     </div>
+
+
+    
+<script>
+    // Activer le log Pusher (à désactiver en production)
+    Pusher.logToConsole = true;
+
+    // Initialiser Pusher
+    var pusher = new Pusher('90772dc20eb20484a33c', {
+        cluster: 'mt1'
+    });
+
+    // S'abonner au canal
+    var channel = pusher.subscribe('my-channel');
+
+    // Réagir à l'événement 'my-event'
+    channel.bind('my-event', function(data) {
+        $.ajax({
+            type: 'GET',
+            url: '/updateunseenmessage',
+            success: function(data) {
+                console.log(data.unseenCounter);
+
+                var html = ``;
+
+                if (data.unseenCounter > 0) {
+                    html += `<span style="right:68px;" class="pending-notification-chat">${data.unseenCounter}</span>`;
+                }
+
+                $('.pending-div').html(html);
+            },
+            error: function(xhr, status, error) {
+                console.error("Erreur AJAX :", error);
+            }
+        });
+    });
+</script>
+
 </body>
 
 </html>
