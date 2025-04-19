@@ -9,7 +9,7 @@ class Immobilier extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['adresse', 'type', 'prix', 'surface', 'user_image', 'description'];
+    protected $fillable = ['adresse', 'type', 'prix', 'surface', 'user_image', 'description', 'photos'];
 
 
 

@@ -16,10 +16,13 @@ return new class extends Migration
         Schema::create('notifications', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('type');
-            $table->morphs('notifiable');
+            $table->string('notifiable_type');
+            $table->unsignedBigInteger('notifiable_id');
             $table->text('data');
-            $table->timestamp('read_at')->nullable();
-            $table->timestamps();
+            $table->timestamp('read_at')->nullable()->default(null);
+            $table->timestamp('created_at')->nullable()->default(null);
+            $table->timestamp('updated_at')->nullable()->default(null);
+       
         });
     }
 

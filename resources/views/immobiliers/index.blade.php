@@ -151,7 +151,7 @@
                         <div class="card-img-container">
                             <img src="{{ asset($immobilier->user_image) }}" class="card-img" alt="Bien immobilier">
                             <div class="price-badge">
-                                {{ $immobilier->prix }} €
+                                {{ $immobilier->prix }} DA
                             </div>
                         </div>
                         

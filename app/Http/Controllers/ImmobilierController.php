@@ -52,29 +52,48 @@ class ImmobilierController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): RedirectResponse
-    {
-        request()->validate([
-            "adresse" => 'required|max:255',
-            "type" => 'required|max:255',
-            "prix" => 'numeric',
-            "surface" => 'numeric',
-            "user_image" => 'required|image',
+
+     public function store(Request $request): RedirectResponse
+     {
+         $request->validate([
+             "adresse" => 'required|max:255',
+             "type" => 'required|max:255',
+             "prix" => 'numeric',
+             "surface" => 'numeric',
+             "user_image" => 'required|image|mimes:jpeg,png,jpg|max:5120',
              "description" => 'required|max:255',
-        ]);
+             'photos' => 'required|array|max:5',  // La validation des images multiples
+             'photos.*' => 'image|mimes:jpg,png,jpeg|max:5120',  // Chaque image doit être valide
+         ]);
+     
+         $requestData = $request->all();
+     
+         // Upload de l'image principale
+         $fileName = time() . $request->file('user_image')->getClientOriginalName();
+         $path = $request->file('user_image')->storeAs('images', $fileName, 'public');
+         $requestData['user_image'] = '/storage/' . $path;
+     
+         // Upload des images multiples et stockage des chemins
+         $photosPaths = [];
+         if ($request->hasFile('photos')) {
+             $photos = $request->file('photos');
+             foreach ($photos as $photo) {
+                 $photoName = time() . $photo->getClientOriginalName();
+                 $photoPath = $photo->storeAs('images', $photoName, 'public');
+                 $photosPaths[] = '/storage/' . $photoPath;  // Ajoute chaque chemin dans le tableau
+             }
+         }
+     
+         // Enregistrement des chemins des photos dans la base de données
+         $requestData['photos'] = json_encode($photosPaths);  // Encode le tableau en JSON
+     
+         Immobilier::create($requestData);  // Création de l'immobilier avec toutes les données
+     
+         return redirect()->route('immobiliers.index')
+             ->with('success', 'Immobilier créé avec succès.');
+     }
+     
 
-        $requestData = $request ->all();
-        $fileName =  time().$request->file('user_image')->getClientOriginalName();
-        $path=$request->file('user_image')->storeAs('images',$fileName,'public');
-        $requestData['user_image']='/storage/'.$path;
-        Immobilier::create($requestData);
-
-
-        return redirect()->route('immobiliers.index')
-            ->with('success', 'Immobilier created successfully.');
-
-
-    }
 
     /**
      * Display the specified resource.
@@ -189,13 +208,6 @@ class ImmobilierController extends Controller
     }
 
 
-
-
-
-
-
-
-
     public function acheter()
     {
         // Récupérer les biens de type "achat" en utilisant le champ existant
@@ -263,8 +275,6 @@ public function prendreRdv($id): View
     // Retourne la vue pour envoyer une demande de rendez-vous
     return view('rdv.create', compact('immobilier'));
 }
-
-
 
 
 

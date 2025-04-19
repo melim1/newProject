@@ -230,23 +230,39 @@
                     </div>
                 </div>
                 
+                <!-- Section Image principale -->
                 <div class="form-section">
-                    <h4 class="form-section-title">Image du bien</h4>
-                    
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="file-upload-wrapper">
-                                <input type="file" name="user_image" id="user_image" class="d-none" required>
-                                <label for="user_image" class="file-upload-label">
-                                    <i class="fas fa-cloud-upload-alt file-upload-icon"></i>
-                                    <span class="file-upload-text">Cliquez pour télécharger une image</span>
-                                    <span class="file-upload-info">Formats acceptés : JPG, PNG (Max 5MB)</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
+    <h4 class="form-section-title">Image principale du bien</h4>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="file-upload-wrapper">
+                <input type="file" name="user_image" id="user_image" class="d-none" required>
+                <label for="user_image" class="file-upload-label">
+                    <i class="fas fa-cloud-upload-alt file-upload-icon"></i>
+                    <span class="file-upload-text" id="main-image-text">Cliquez pour télécharger l'image principale</span>
+                    <span class="file-upload-info">Formats acceptés : JPG, PNG (Max 5MB)</span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="form-section">
+    <h4 class="form-section-title">Galerie d'images supplémentaires</h4>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="file-upload-wrapper">
+            <input type="file" name="photos[]" id="photos" class="d-none" multiple accept="image/*">
+
+            <label for="photos" class="file-upload-label">
+                    <i class="fas fa-images file-upload-icon"></i>
+                    <span class="file-upload-text" id="gallery-text">Cliquez pour télécharger plusieurs images</span>
+                    <span class="file-upload-info">Formats acceptés : JPG, PNG (Max 5MB par image)</span>
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
                 <div class="text-center mt-5">
                     <button type="submit" class="btn btn-submit">
                         <i class="fas fa-save mr-2"></i>Enregistrer le bien
@@ -255,13 +271,27 @@
             </form>
         </div>
     </div>
-</div>
-
-<script>
-    // Afficher le nom du fichier sélectionné
+</div><script>
+    // Image principale
     document.getElementById('user_image').addEventListener('change', function(e) {
         const fileName = e.target.files[0]?.name || 'Aucun fichier sélectionné';
-        document.querySelector('.file-upload-text').textContent = fileName;
+        document.getElementById('main-image-text').textContent = fileName;
     });
+
+    // Galerie d'images
+    document.getElementById('photos').addEventListener('change', function(e) {
+        const files = e.target.files;
+        const textElement = document.getElementById('gallery-text');
+        
+        if (files.length > 0) {
+            textElement.textContent = `${files.length} fichier(s) sélectionné(s)`;
+        } else {
+            textElement.textContent = 'Cliquez pour télécharger plusieurs images';
+        }
+    });
+
+
+
+    
 </script>
 @endsection

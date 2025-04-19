@@ -19,70 +19,74 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\RendezVousStatusUpdated; // Assurez-vous que cette classe est également importée
 use App\Mail\RendezVousRefused; 
 use App\Notifications\RendezVousAccepted;
-
+use App\Notifications\PouveauRendezVousNotification;
 
 class RendezVousController extends Controller
 {
    
    
-     public function store(Request $request)
+    public function store(Request $request)
     {
-        // Valider les données
+        if (!auth()->check()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Vous devez être connecté pour prendre un rendez-vous.'
+            ], 401);
+        }
+    
+        $user = auth()->user();
+    
         $request->validate([
-            'nom_complet' => 'required|string|max:255',
-            'email'       => 'required|email|max:255',
-            'telephone'   => [
-                'required',
-                'string',
-                'size:10',
-                'regex:/^(05|06|07)[0-9]{8}$/'
-            ],
-            'message'       => 'nullable|string',
             'immobilier_id' => 'required|exists:immobiliers,id',
-            'type'          => 'required|in:vente,location',
-            // 'statut' est défini par défaut à "en attente"
+            'type' => 'required|in:vente,location',
+            'telephone' => [
+    'nullable',
+    'string',
+    'max:20',
+    'regex:/^(05|06|07)[0-9]{8}$/'
+],
         ]);
     
         try {
-            // Requête SQL brute pour insérer les données dans la table rendez_vous
-            DB::insert('
-                INSERT INTO rendez_vous (nom_complet, email, telephone, message, immobilier_id, user_id, created_at, updated_at, type, date_visite, heure_visite, statut)
-                VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW(), ?, NULL, NULL, "en attente")
-            ', [
-                $request->nom_complet,
-                $request->email,
-                $request->telephone,
-                $request->message,
-                $request->immobilier_id,
-                auth()->id(),
-                $request->type,
-            ]);
-            
+            if (empty($user->phone) && $request->filled('telephone')) {
+                $user->phone = $request->telephone;
+                $user->save();
+            }
     
-            // Si la requête est AJAX, renvoyer du JSON
-            if ($request->ajax()) {
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Votre demande a été envoyée avec succès.'
-                ]);
-
-                
+            $dateActuelle = now()->toDateString();
+            $heureActuelle = now()->format('H:i');
+    
+            $rendezVous = RendezVous::create([
+                'nom_complet' => $user->name,
+                'email' => $user->email,
+                'telephone' => $user->phone ?? $request->telephone,
+                'message' => $request->message ?? 'Demande de rendez-vous automatique',
+                'immobilier_id' => $request->immobilier_id,
+                'user_id' => $user->id,
+                'type' => $request->type,
+                'statut' => 'en attente',
+                'date_visite' => $dateActuelle,
+                'heure_visite' => $heureActuelle,
+            ]);
+    
+            $admin = User::where('email', 'admin@gmail.com')->first();
+            if ($admin) {
+                $admin->notify(new PouveauRendezVousNotification($rendezVous));
             }
-         
-            return redirect()->back()->with('success', 'Votre demande de rendez-vous a été envoyée avec succès.');
+    
+            return response()->json([
+                'success' => true,
+                'message' => 'Votre demande de rendez-vous a été envoyée avec succès.'
+            ]);
+    
         } catch (\Exception $e) {
-            // En cas d'erreur, renvoyer un message d'erreur
-            if ($request->ajax()) {
-                return response()->json([ 
-                    'success' => false,
-                    'message' => 'Une erreur s\'est produite lors de l\'enregistrement de votre demande.'
-                ], 500);
-            }
-            return redirect()->back()->with('error', 'Une erreur s\'est produite lors de l\'enregistrement de votre demande.');
+            return response()->json([
+                'success' => false,
+                'message' => 'Une erreur s\'est produite: ' . $e->getMessage()
+            ], 500);
         }
     }
- 
-
+    
 
 
 
@@ -128,6 +132,8 @@ class RendezVousController extends Controller
             Mail::to($rendezVous->email)->send(new \App\Mail\RendezVousRefused($rendezVous));
         }
     
+
+ 
         return redirect()->route('rdvs.index')
             ->with('success', 'Le rendez-vous a été mis à jour avec succès.');
     }

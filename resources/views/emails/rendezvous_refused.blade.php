@@ -13,7 +13,20 @@
         <!-- Contenu -->
         <div style="padding: 20px 0; color: #555555; font-size: 16px; line-height: 1.6;">
             <p>Bonjour <strong>{{ $rendezVous->nom_complet }}</strong>,</p>
-            <p>Nous regrettons de vous informer que votre demande de rendez-vous a été refusée .</p>
+
+            @php
+    $immobilier = $rendezVous->immobilier; // grâce à la relation immobilier()
+    $user = $rendezVous->user; // grâce à la relation user()
+@endphp
+
+<p>
+    Nous regrettons de vous informer que votre demande de rendez-vous pour le bien situé à 
+    <strong>{{ $immobilier->adresse }}</strong> (pour la : <strong>{{ $rendezVous->type }}</strong>) 
+    a été refusée.
+</p>
+
+
+
             <p>Si vous avez des questions ou souhaitez plus d'informations, n'hésitez pas à nous contacter.</p>
             <p>Merci de votre compréhension.</p>
         </div>

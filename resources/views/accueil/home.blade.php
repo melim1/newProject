@@ -252,48 +252,124 @@
  <!-- contacte nous-->
 
   <!-- contacte nous-->
+  <footer class="bg-white text-white pt-5">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Colonne À propos -->
+            <div class="col-lg-4 col-md-6">
+                <div class="pe-lg-4">
+                    <h3 class="h4 mb-4 text-primary">Agence immobilière</h3>
+                    <p class="text-muted">
+                        Votre partenaire de confiance pour trouver le bien idéal. 
+                        Nous vous accompagnons dans tous vos projets immobiliers 
+                        avec expertise et professionnalisme.
+                    </p>
+                    <div class="mt-4">
+                        <a href="tel:+123456789" class="text-bleu text-decoration-none d-block mb-2">
+                            <i class="fas fa-phone-alt me-2"></i> +123 456 789
+                        </a>
+                        <a href="mailto:contact@agence.com" class="text-blue text-decoration-none d-block">
+                            <i class="fas fa-envelope me-2"></i> contact@agence.com
+                        </a>
+                    </div>
+                </div>
+            </div>
 
-   <div class="container-fluid bg-white mt-5">
-    <div class="row">
-        <div class="col-lg-4 p-4">
-            <h3 class="mb-2">Agence immobilière</h3>
-            <p>Lorem ipsum dolor sit amet consectetur,
-                adipisicing elit. Quaerat necessitatibus corporis minus,
-                asperiores mollitia officia ex ratione,
-                commodi quo aspernatur sed. Corporis voluptatibus omnis mollitia dicta officiis,
-                 sed voluptas consectetur!
+            <!-- Colonne Liens rapides -->
+            <div class="col-lg-4 col-md-6">
+                <h5 class="h6 mb-4 text-primary">Navigation</h5>
+                <div class="d-flex flex-column">
+                    <a class="text-blue-50 text-decoration-none mb-2 py-1 hover-text-primary 
+                        @if(Request::route()->getName() == 'app_accueil') active text-primary @endif" 
+                        href="{{ route('app_accueil') }}">
+                        <i class="fas fa-home me-2"></i> Accueil
+                    </a>
+                    <a class="text-blue-50 text-decoration-none mb-2 py-1 hover-text-primary
+                        @if(Request::route()->getName() == 'app_acheter') active text-primary @endif" 
+                        href="{{ route('app_acheter') }}">
+                        <i class="fas fa-euro-sign me-2"></i> Acheter
+                    </a>
+                    <a class="text-blue-50 text-decoration-none mb-2 py-1 hover-text-primary
+                        @if(Request::route()->getName() == 'app_louer') active text-primary @endif" 
+                        href="{{ route('app_louer') }}">
+                        <i class="fas fa-key me-2"></i> Louer
+                    </a>
+                    <a class="text-blue-50 text-decoration-none mb-2 py-1 hover-text-primary
+                        @if(Request::route()->getName() == 'app_about') active text-primary @endif" 
+                        href="{{ route('app_about') }}">
+                        <i class="fas fa-info-circle me-2"></i> À propos
+                    </a>
+                    <a class="text-blue-50 text-decoration-none mb-2 py-1 hover-text-primary
+                        @if(Request::route()->getName() == 'app_connexion') active text-primary @endif" 
+                        href="{{ route('app_connexion') }}">
+                        <i class="fas fa-sign-in-alt me-2"></i> Connexion
+                    </a>
+                    <a class="text-blue-50 text-decoration-none py-1 hover-text-primary
+                        @if(Request::route()->getName() == 'app_inscription') active text-primary @endif" 
+                        href="{{ route('app_inscription') }}">
+                        <i class="fas fa-user-plus me-2"></i> Inscription
+                    </a>
+                </div>
+            </div>
+
+            <!-- Colonne Réseaux sociaux -->
+            <div class="col-lg-4 col-md-6">
+                <h5 class="h6 mb-4 text-primary">Nous suivre</h5>
+                <div class="d-flex flex-column mb-4">
+                    <a href="#" class="text-blue-50 text-decoration-none mb-2 py-1 hover-text-primary">
+                        <i class="fab fa-twitter me-2"></i> Twitter
+                    </a>
+                    <a href="#" class="text-blue-50 text-decoration-none mb-2 py-1 hover-text-primary">
+                        <i class="fab fa-facebook-f me-2"></i> Facebook
+                    </a>
+                    <a href="#" class="text-blue-50 text-decoration-none mb-2 py-1 hover-text-primary">
+                        <i class="fab fa-instagram me-2"></i> Instagram
+                    </a>
+                    <a href="#" class="text-blue-50 text-decoration-none py-1 hover-text-primary">
+                        <i class="fab fa-linkedin-in me-2"></i> LinkedIn
+                    </a>
+                </div>
+                
+              
+            </div>
+        </div>
+        
+        <hr class="my-4 bg-gray-700">
+        
+        <div class="text-center py-3">
+            <p class="mb-0 text-blue-50 small">
+                &copy; {{ date('Y') }} Agence immobilière - Tous droits réservés
+                <span class="mx-2">|</span>
+                <a href="#" class="text-blue-50 text-decoration-none hover-text-primary">Mentions légales</a>
+                <span class="mx-2">|</span>
+                <a href="#" class="text-blue-50 text-decoration-none hover-text-primary">Politique de confidentialité</a>
             </p>
         </div>
-        <div class="col-lg-4 p-4">
-            <h5 class="mb-3">Liens</h5>
-
-                <a class="nav-link @if(Request::route()->getName() == 'app_accueil') active @endif" aria-current="page" href="{{ route('app_accueil') }}">Accueil</a><br>
-                <a class="nav-link  @if(Request::route()->getName() == 'app_acheter') active @endif" href="{{  route('app_acheter') }}">Acheter</a><br>
-                <a class="nav-link @if(Request::route()->getName() == 'app_louer') active @endif" href="{{  route('app_louer') }}">Louer</a><br>
-                <a class="nav-link @if(Request::route()->getName() == 'app_about') active @endif" href="{{ route('app_about') }}">À propos</a><br>
-                <a class="nav-link @if(Request::route()->getName() == 'app_connexion') active @endif" href="{{  route('app_connexion') }}">Connexion</a><br>
-                <a class="nav-link @if(Request::route()->getName() == 'app_inscription') active @endif" href="{{  route('app_inscription') }}">Inscription</a><br>
-
-        </div>
-        <div class="col-lg-4 p-4">
-            <h5 class="mb-3">Suivez nous</h5>
-            <a href="#" class="d-line-block text-dark text-decoration-none mb-2">
-                <i class="bi bi-twitter-x me-1"></i> Twitter
-
-            </a><br>
-            <a href="#" class="d-line-block text-dark text-decoration-none mb-2">
-                <i class="bi bi-facebook me-1"></i> Facebook
-
-            </a><br>
-            <a href="#" class="d-line-block text-dark text-decoration-none mb-2">
-                <i class="bi bi-instagram me-1"></i> Instagram
-
-            </a><br>
-
-        </div>
     </div>
-   </div>
-   <h6 class="text-center bg-dark text-white p-3 m-0">Agence immobilière</h6>
+</footer>
+
+<style>
+    .hover-text-primary:hover {
+        color:rgb(23, 58, 96) !important;
+        transform: translateX(5px);
+        transition: all 0.3s ease;
+    }
+    
+    .bg-gray-800 {
+        background-color:rgb(192, 208, 236);
+    }
+    
+    footer a.active {
+        color: #4e79a7 !important;
+        font-weight: 600;
+    }
+    
+    footer .text-primary {
+        color: #4e79a7 !important;
+    }
+</style>
+
+
 
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

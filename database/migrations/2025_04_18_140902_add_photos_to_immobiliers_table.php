@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('rendez_vous', function (Blueprint $table) {
-            $table->string('statut')->default('en attente');
-
+        Schema::table('immobiliers', function (Blueprint $table) {
+            $table->text('photos')->nullable();
         });
     }
 
@@ -26,9 +25,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('rendez_vous', function (Blueprint $table) {
-            $table->dropColumn('statut');
-
+        Schema::table('immobiliers', function (Blueprint $table) {
+            //
         });
     }
 };

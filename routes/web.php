@@ -172,6 +172,52 @@ Route::get('/homeee', function () {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+//notif admin
+
+// Route pour afficher les notifications
+// Route pour afficher la liste des notifications (avec pagination)
+Route::get('/notifications', [NotificationController::class, 'notif'])->name('notification.index');
+
+// Route pour afficher le nombre de notifications non lues
+Route::get('/notifications/unread', [NotificationController::class, 'index'])->name('notifications.unread');
+
+Route::patch('/notifications/{id}/read', [NotificationController::class, 'marquerLue'])->name('notification.markAsRead');
+
+
+
+
+
+//Ajouter numero tlfn 
+Route::post('/user/update-phone', [UserController::class, 'updatePhone'])->name('user.update.phone')->middleware('auth');
+
+
+
 //compter les messages non lus
 
 Route::get('/updateunseenmessage', [App\Http\Controllers\UserController::class, 'checkUnseenmessage']);
+
+
+
+
+
+
+Route::middleware('auth:sanctum')->get('/user-info', function (Request $request) {
+    return response()->json([
+        'name' => $request->user()->name,
+        'email' => $request->user()->email,
+        'phone' => $request->user()->phone
+    ]);
+});

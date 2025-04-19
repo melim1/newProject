@@ -548,6 +548,8 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
 
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
+        'App\\Events\\MessageSent' => __DIR__ . '/../..' . '/app/Events/MessageSent.php',
+        'App\\Events\\MyEvent' => __DIR__ . '/../..' . '/app/Events/MyEvent.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -566,6 +568,7 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
         'App\\Http\\Controllers\\RendezVousController' => __DIR__ . '/../..' . '/app/Http/Controllers/RendezVousController.php',
         'App\\Http\\Controllers\\RoleController' => __DIR__ . '/../..' . '/app/Http/Controllers/RoleController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
+        'App\\Http\\Controllers\\vendor\\Chatify\\MessagesController' => __DIR__ . '/../..' . '/app/Http/Controllers/vendor/Chatify/MessagesController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
@@ -585,6 +588,9 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
         'App\\Models\\Notification' => __DIR__ . '/../..' . '/app/Models/Notification.php',
         'App\\Models\\RendezVous' => __DIR__ . '/../..' . '/app/Models/RendezVous.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
+        'App\\Notifications\\NouveauRendezVousNotification' => __DIR__ . '/../..' . '/app/Notifications/NouveauRendezVousNotification.php',
+        'App\\Notifications\\NouvelleDemandeRendezVous' => __DIR__ . '/../..' . '/app/Notifications/NouvelleDemandeRendezVous.php',
+        'App\\Notifications\\PouveauRendezVousNotification' => __DIR__ . '/../..' . '/app/Notifications/PouveauRendezVousNotification.php',
         'App\\Notifications\\RendezVousAccepted' => __DIR__ . '/../..' . '/app/Notifications/RendezVousAccepted.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',

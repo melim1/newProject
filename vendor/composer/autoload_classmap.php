@@ -7,6 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
+    'App\\Events\\MessageSent' => $baseDir . '/app/Events/MessageSent.php',
+    'App\\Events\\MyEvent' => $baseDir . '/app/Events/MyEvent.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Auth\\ConfirmPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ConfirmPasswordController.php',
     'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -25,6 +27,7 @@ return array(
     'App\\Http\\Controllers\\RendezVousController' => $baseDir . '/app/Http/Controllers/RendezVousController.php',
     'App\\Http\\Controllers\\RoleController' => $baseDir . '/app/Http/Controllers/RoleController.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',
+    'App\\Http\\Controllers\\vendor\\Chatify\\MessagesController' => $baseDir . '/app/Http/Controllers/vendor/Chatify/MessagesController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
@@ -44,6 +47,9 @@ return array(
     'App\\Models\\Notification' => $baseDir . '/app/Models/Notification.php',
     'App\\Models\\RendezVous' => $baseDir . '/app/Models/RendezVous.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
+    'App\\Notifications\\NouveauRendezVousNotification' => $baseDir . '/app/Notifications/NouveauRendezVousNotification.php',
+    'App\\Notifications\\NouvelleDemandeRendezVous' => $baseDir . '/app/Notifications/NouvelleDemandeRendezVous.php',
+    'App\\Notifications\\PouveauRendezVousNotification' => $baseDir . '/app/Notifications/PouveauRendezVousNotification.php',
     'App\\Notifications\\RendezVousAccepted' => $baseDir . '/app/Notifications/RendezVousAccepted.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',

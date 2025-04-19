@@ -144,7 +144,7 @@
             position: absolute;
             top: -5px;
             right: -5px;
-            background-color: red;
+            background-color: var(--danger-color);
             color: white;
             border-radius: 50%;
             padding: 3px 7px;
@@ -257,11 +257,7 @@
                 display: block;
                 margin-right: 1rem;
             }
-
-
-        
-
-        
+        }
     </style>
 </head>
 
@@ -298,6 +294,12 @@
                 </a>
 
            
+
+                <a href="{{ route('notification.index') }}">
+                    <i class="fas fa-building"></i>
+                    <span>Notification</span>
+                </a>
+
             </div>
         </div>
 
@@ -309,17 +311,27 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto">
+                    <!-- Messagerie -->
                     <li class="nav-item">
-                        <a class="nav-link nav-icon" href="#">
-                            <i class="fas fa-envelope"></i>
-                            <span class="notification-badge">3</span>
-                        </a>
-                    </li>
+                                <a class="nav-link nav-icon" href="{{ route('messagerie') }}">
+                                    <i class="fas fa-envelope"></i>
+                                            @if($unseenCounter > 0)
+                                          <span class="notification-badge">{{ $unseenCounter }}</span>
+                                           @endif
+                                </a>
+                            </li>
+
+
+                
+                    
+
+
 
                     <li class="nav-item">
-                        <a class="nav-link nav-icon" href="#">
+                    <a class="nav-link nav-icon" href="{{ route('notification.index') }}">
+       
                             <i class="fas fa-bell"></i>
-                            <span class="notification-badge">5</span>
+<span class="notification-badge">{{ Auth::user()->unreadNotifications->count() }}</span>
                         </a>
                     </li>
 
@@ -337,17 +349,6 @@
                                 </a></li>
                             <li>
                                 <hr class="dropdown-divider">
-                            </li>
-
-
-                             <!-- Messagerie -->
-                             <li class="nav-item">
-                                <a class="nav-link nav-icon" href="{{ route('messagerie') }}">
-                                    <i class="fas fa-envelope"></i>
-                                            @if($unseenCounter > 0)
-                                          <span class="notification-badge">{{ $unseenCounter }}</span>
-                                           @endif
-                                </a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="{{ route('logout') }}"

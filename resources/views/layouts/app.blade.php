@@ -14,6 +14,11 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -69,24 +74,36 @@
             padding: 2rem;
         }
 
-        .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            width: 18px;
-            height: 20px;
-            background-color: red;
-            color: white;
-            border-radius: 50%;
-            padding: 2px 6px;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            font-weight: bold;
-            justify-content: center;
-        
+        .nav-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
 
-        }
+.notification-badge,
+.pending-notification-chat {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 20px;
+    height: 20px;
+    background-color: #ff4757;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    justify-content: center;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
     </style>
 </head>
 
@@ -142,52 +159,54 @@
 
 
                             
-                            
                             <li class="nav-item dropdown me-4">
-                                <a class="nav-link" href="#" id="notificationDropdown" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-bell"></i> Notification
-                                    @if(Auth::user()->unreadNotifications->count() > 0)
-                                        <span class="badge bg-danger" id="notificationCount">
-                                            {{ Auth::user()->unreadNotifications->count() }}
-                                        </span>
-                                    @endif
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown"
-                                    style="min-width: 300px;">
-                                    @if(Auth::user()->unreadNotifications->count() > 0)
-                                        @foreach(Auth::user()->unreadNotifications as $notification)
-                                            <li class="dropdown-item">
-                                                <a href="#" class="notification-link" data-notification-id="{{ $notification->id }}"
-                                                    data-url="{{ $notification->data['url'] ?? '#' }}">
-                                                    {{ $notification->data['message'] ?? 'Vous avez une notification.' }}
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#" id="markAllAsRead">
-                                                Marquer toutes comme lues
-                                            </a>
-                                        </li>
-                                    @else
-                                        <li class="dropdown-item text-muted">Aucune notification.</li>
-                                    @endif
-                                </ul>
-                            </li>
+    <a class="nav-link" href="#" id="notificationDropdown" role="button"
+        data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fas fa-bell"></i> Notification
+
+        @if(Auth::user()->unreadNotifications->count() > 0)
+            <span class="notification-badge" id="notificationCount">
+                {{ Auth::user()->unreadNotifications->count() }}
+            </span>
+        @endif
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown" style="min-width: 300px;">
+        @if(Auth::user()->unreadNotifications->count() > 0)
+            @foreach(Auth::user()->unreadNotifications as $notification)
+                <li class="dropdown-item">
+                    <a href="#" class="notification-link" data-notification-id="{{ $notification->id }}"
+                        data-url="{{ $notification->data['url'] ?? '#' }}">
+                        {{ $notification->data['message'] ?? 'Vous avez une notification.' }}
+                    </a>
+                </li>
+            @endforeach
+            <li>
+                <hr class="dropdown-divider">
+            </li>
+            <li>
+                <a class="dropdown-item" href="#" id="markAllAsRead">
+                    Marquer toutes comme lues
+                </a>
+            </li>
+        @else
+            <li class="dropdown-item text-muted">Aucune notification.</li>
+        @endif
+    </ul>
+</li>
+
 
 
                             <li class="nav-item">
-                                <a class="nav-link nav-icon" href="{{ route('messagerie') }}">
-                                    <i class="fas fa-envelope"></i>
-                            
-                                    @if($unseenCounter > 0)
-                                        <span class="notification-badge">{{ $unseenCounter }}</span>
-                                    @endif
-                                </a>
-                            </li>
+    <a class="nav-link nav-icon" href="{{ route('messagerie') }}">
+        <i class="fas fa-envelope"></i> Messagerie
+
+        @if($unseenCounter > 0)
+            <span class="notification-badge">{{ $unseenCounter }}</span>
+        @endif
+    </a>
+</li>
+
+
                             <li class="nav-item">
                                 <a class="nav-link @if(Request::route()->getName() == 'app_profil') active @endif"
                                     href="{{ route('app_profil') }}">
@@ -216,7 +235,11 @@
     </div>
 
 
+
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
     
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     // Activer le log Pusher (à désactiver en production)
     Pusher.logToConsole = true;
