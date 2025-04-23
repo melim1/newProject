@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/emoji-picker-element@1.12.0/dist/emoji-picker-element.min.css">
   <style>
-    
     body {
       font-family: 'Roboto', sans-serif;
       background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
@@ -26,14 +25,12 @@
   padding: 2rem;
   align-items: flex-start;
   justify-content: space-between; /* Pour espacer les deux sections */
-  height: 80vh; /* La hauteur du conteneur parent est 100% de la hauteur de la fenêtre */
 }
 
 .comments-section {
   width: 40%;
   position: sticky;
   top: 20px;
-  height: 100%; /* La hauteur de la section des commentaires est égale à celle du conteneur parent */
   overflow: hidden;
   padding: 1rem;
   background: white;
@@ -41,7 +38,7 @@
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  flex-grow: 1; /* Permet à la section de croître pour occuper toute la hauteur disponible */
+  height:80vh;
 }
 
 .card {
@@ -55,7 +52,8 @@
   width: 60%;
   margin: 0;
   flex-shrink: 0;
-
+  height: 100%; /* La hauteur de la carte est égale à celle du conteneur parent */
+  flex-grow: 1; /* Permet à la carte de croître pour occuper toute la hauteur disponible */
 }
 
     
@@ -220,9 +218,9 @@
     /* Section des commentaires */
     .comments-section {
       width: 40%;
-     
+      position: sticky;
       top: 20px;
-    
+      height: 86vh;
       overflow-y: auto;
       padding: 1rem;
       background: white;
@@ -513,24 +511,6 @@
 .login-prompt a:hover {
     text-decoration: underline;
 }
-
-
-
-       /* Responsive Design */
-       @media (max-width: 768px) {
-            .card {
-                margin-bottom: 1.5rem;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .navbar-nav {
-                text-align: center;
-            }
   </style>
 </head>
 <body>
@@ -576,56 +556,15 @@
     <a href="{{ route('3Dshow', ['id' => $immobilier->id]) }}" class="btn btn-primary">
         <i class="fas fa-vr-cardboard"></i> Visite virtuelle
     </a>
-    <a href="{{ route('app_acheter') }}" class="btn btn-primary">Retour à la liste</a>
+    <a href="{{ route('app_echanger') }}" class="btn btn-primary">Retour à la liste</a>
     @auth
-        <button id="btn-rdv" class="btn btn-primary">Demander un rendez-vous</button>
+    <a href="{{ route('messagerie') }}" class="btn btn-primary">Envoyer un message </a>
     @else
-        <a href="{{ route('login') }}" class="btn btn-primary">Connectez-vous pour un RDV</a>
+        <a href="{{ route('login') }}" class="btn btn-primary">Connectez-vous pour envoyer message </a>
     @endauth
 </div>
 
-@php
-        $user = Auth::user();
-      @endphp
 
-      <div id="overlay"></div>
-<div id="rdv-form" class="modal">
-    <form id="rdv-form-submit" action="{{ route('rendez-vous.store') }}" method="POST">
-        @csrf
-        <input type="hidden" name="immobilier_id" value="{{ $immobilier->id }}">
-        <input type="hidden" name="type" value="vente">
-
-        <div>
-            <label for="nom_complet">Nom complet:</label>
-            <input type="text" name="nom_complet" value="{{ auth()->user() ? auth()->user()->name : '' }}" required>
-        </div>
-
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" name="email" value="{{ auth()->user() ? auth()->user()->email : '' }}" required>
-        </div>
-
-        <div>
-            <label for="telephone">Téléphone:</label>
-            <input type="text" name="telephone" 
-                   value="{{ auth()->user() && auth()->user()->phone ? auth()->user()->phone : '' }}" 
-                   placeholder="0512345678" 
-                   required
-                   pattern="(05|06|07)[0-9]{8}">
-        </div>
-
-        <div>
-            <label for="message">Message (optionnel):</label>
-            <textarea name="message"></textarea>
-        </div>
-
-        <div id="rdv-message" class="message"></div>
-        <div class="form-buttons">
-            <button type="submit">Envoyer</button>
-            <button type="button" id="btn-cancel-rdv">Annuler</button>
-        </div>
-    </form>
-</div>
     </div>
 
    

@@ -278,4 +278,32 @@ public function prendreRdv($id): View
 
 
 
+
+
+
+
+
+public function echanger()
+    {
+        // Récupérer les biens de type "location"
+        $immobiliers = Immobilier::where('type', 'echange')->get();
+    
+        // Passer les données à la vue
+        return view('accueil.echanger', compact('immobiliers'));
+    }
+
+
+
+
+
+
+    public function echangeDetail($id): View
+{
+    // Récupère le bien immobilier par son ID
+    $immobilier = Immobilier::findOrFail($id);
+
+    // Retourne la vue avec les détails du bien immobilier
+    return view('echange.detail', compact('immobilier'));
+}
+
 }

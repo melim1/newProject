@@ -236,7 +236,7 @@
       width: 40%;
       position: sticky;
       top: 20px;
-      height: 86vh;
+      height: 80vh;
       overflow-y: auto;
       padding: 1rem;
       background: white;

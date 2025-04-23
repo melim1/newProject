@@ -34,6 +34,11 @@ Route::get('/about', function () {
 
 
 
+Route::get('/echanger', [ImmobilierController::class, 'echanger'])->name('app_echanger');
+
+// Route pour afficher les détails d'un bien immobilier
+Route::get('/echange/detail/{id}', [ImmobilierController::class, 'echangeDetail'])->name('echange.detail');
+
 
 
 

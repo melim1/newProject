@@ -137,6 +137,14 @@
                                 <i class="fas fa-hand-holding-usd"></i> Louer
                             </a>
                         </li>
+
+
+                        <li class="nav-item me-4">
+                            <a class="nav-link @if(Request::route()->getName() == 'app_echanger') active @endif"
+                                href="{{ route('app_echanger') }}">
+                                <i class="fas fa-hand-holding-usd"></i> Echanger
+                            </a>
+                        </li>
                         <li class="nav-item me-4">
                             <a class="nav-link @if(Request::route()->getName() == 'app_about') active @endif"
                                 href="{{ route('app_about') }}">
