@@ -139,10 +139,10 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="mb-3">
-                    <label for="email_or_phone" class="form-label">Adresse e-mail ou Numéro de téléphone</label>
+                    <label for="email_or_phone" class="form-label">Adresse e-mail</label>
                     <input id="email_or_phone" type="text" class="form-control" name="email_or_phone" required
                         autocomplete="email_or_phone" autofocus
-                        placeholder="Entrez votre e-mail ou numéro de téléphone">
+                        placeholder="Entrez votre e-mail">
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Mot de passe</label>

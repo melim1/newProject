@@ -104,38 +104,25 @@ class RendezVousController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Valider les données
+        // Validation des données
         $request->validate([
             'date_visite' => 'nullable|date',
-            'heure_visite' => 'nullable|date_format:H:i',
-            'statut' => 'required|in:en attente,validé,refusé',
+            'heure_visite' => 'nullable',  // Ensures the format is HH:MM
+            'statut' => 'nullable|in:en attente,validé,refusé',
         ]);
-    
-        // Récupérer le rendez-vous
+        
+        // Trouver le rendez-vous à mettre à jour
         $rendezVous = RendezVous::findOrFail($id);
     
-        // Mettre à jour les informations
+        // Mettre à jour les informations du rendez-vous
         $rendezVous->update([
             'date_visite' => $request->date_visite,
             'heure_visite' => $request->heure_visite,
             'statut' => $request->statut,
         ]);
     
-        // Si le rendez-vous est validé, envoyer la notification à l'utilisateur
-        if ($request->statut === 'validé') {
-            // Vous pouvez également envoyer un e-mail ici si besoin
-            $rendezVous->user->notify(new \App\Notifications\RendezVousAccepted($rendezVous));
-            Mail::to($rendezVous->email)->send(new \App\Mail\RendezVousStatusUpdated($rendezVous));
-
-        } elseif ($request->statut === 'refusé') {
-            // Par exemple, envoyer un e-mail de refus
-            Mail::to($rendezVous->email)->send(new \App\Mail\RendezVousRefused($rendezVous));
-        }
-    
-
- 
-        return redirect()->route('rdvs.index')
-            ->with('success', 'Le rendez-vous a été mis à jour avec succès.');
+        // Rediriger l'utilisateur vers une autre page avec un message de succès
+        return redirect()->route('rdvs.index')->with('success', 'Rendez-vous mis à jour avec succès');
     }
     
 }

@@ -159,7 +159,10 @@ Route::get('/inscription', function () {
 
 
 
+//Route::put('/rdvs/{id}/update-date', [RendezVousController::class, 'updateDate'])->name('rdvs.updateDate');
+Route::put('/rdvs/{id}', [RendezVousController::class, 'update'])->name('rdvs.update');
 
+Route::resource('rdvs', RendezVousController::class);
 
 Auth::routes();
 

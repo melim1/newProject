@@ -60,10 +60,10 @@ class ImmobilierController extends Controller
              "type" => 'required|max:255',
              "prix" => 'numeric',
              "surface" => 'numeric',
-             "user_image" => 'required|image|mimes:jpeg,png,jpg|max:5120',
+             "user_image" => 'required|image|mimes:jpeg,png,jpg',
              "description" => 'required|max:255',
              'photos' => 'required|array|max:5',  // La validation des images multiples
-             'photos.*' => 'image|mimes:jpg,png,jpeg|max:5120',  // Chaque image doit être valide
+             'photos.*' => 'image|mimes:jpg,png,jpeg',  // Chaque image doit être valide
          ]);
      
          $requestData = $request->all();
@@ -149,6 +149,7 @@ class ImmobilierController extends Controller
     }
 
     // Mettre à jour un immobilier
+
     public function update(Request $request, $id)
     {
         $request->validate([

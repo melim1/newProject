@@ -5,13 +5,13 @@
     .notification-title {
         font-size: 2rem;
         font-weight: bold;
-        color: #007bff;
+        color: #2d3748;
         margin-bottom: 30px;
         text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
     }
 
     .card-header {
-        background-color: #007bff;
+        background-color: #2d3748;
         color: white;
         font-weight: bold;
         font-size: 1.2rem;

@@ -259,6 +259,8 @@
             }
         }
     </style>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 </head>
 
 <body>
@@ -284,20 +286,20 @@
 
                 <a href="{{ route('rdvs.index') }}">
                     <i class="fas fa-calendar-check"></i>
-                    <span>Rendez-vous</span>
+                    <span> Gérer Rendez-vous</span>
                 </a>
                 @endrole
 
                 <a href="{{ route('immobiliers.index') }}">
                     <i class="fas fa-building"></i>
-                    <span>Immobilier</span>
+                    <span>Gérer Immobilier</span>
                 </a>
 
            
 
                 <a href="{{ route('notification.index') }}">
-                    <i class="fas fa-building"></i>
-                    <span>Notification</span>
+                    <i class="fas fa-envelope"></i>
+                    <span>Gérer Notification</span>
                 </a>
 
             </div>
