@@ -31,4 +31,15 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+
+    'huggingface' => [
+    'api_key' => env('HUGGINGFACE_API_KEY'),
+    'model' => env('HUGGINGFACE_MODEL', 'facebook/blenderbot-400M-distill')
+],
+
 ];
+
+
+
+
+

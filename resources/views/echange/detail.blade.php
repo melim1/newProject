@@ -558,7 +558,9 @@
     </a>
     <a href="{{ route('app_echanger') }}" class="btn btn-primary">Retour à la liste</a>
     @auth
-    <a href="{{ route('messagerie') }}" class="btn btn-primary">Envoyer un message </a>
+
+ 
+    <a  href="{{ url('chatify/' . $immobilier->user_id) }}"class="btn btn-primary">Envoyer un message </a>
     @else
         <a href="{{ route('login') }}" class="btn btn-primary">Connectez-vous pour envoyer message </a>
     @endauth

@@ -7,20 +7,17 @@
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         border: none;
     }
-    
     .card-header {
         background-color:rgb(72, 74, 78);
         color: white;
         border-radius: 10px 10px 0 0 !important;
         padding: 1.25rem 1.5rem;
     }
-    
     .table {
         width: 100%;
         margin-bottom: 1rem;
         background-color: transparent;
     }
-    
     .table th {
         background-color: #f8f9fc;
         color: #5a5c69;
@@ -32,18 +29,15 @@
         vertical-align: middle;
         border-bottom: 1px solid #e3e6f0;
     }
-    
     .table td {
         padding: 1rem;
         vertical-align: middle;
         border-top: 1px solid #e3e6f0;
         color: #5a5c69;
     }
-    
     .table tr:hover td {
         background-color: #f6f9ff;
     }
-    
     .status-valid {
         color: #1cc88a;
         font-weight: bold;
@@ -52,7 +46,6 @@
         border-radius: 50px;
         display: inline-block;
     }
-    
     .status-refus {
         color: #e74a3b;
         font-weight: bold;
@@ -61,7 +54,6 @@
         border-radius: 50px;
         display: inline-block;
     }
-    
     .status-attente {
         color: #f6c23e;
         font-weight: bold;
@@ -70,7 +62,6 @@
         border-radius: 50px;
         display: inline-block;
     }
-    
     .btn-success {
         background-color: #1cc88a;
         border-color: #1cc88a;
@@ -79,7 +70,6 @@
         font-size: 0.875rem;
         transition: all 0.2s;
     }
-    
     .btn-danger {
         background-color: #e74a3b;
         border-color: #e74a3b;
@@ -88,50 +78,49 @@
         font-size: 0.875rem;
         transition: all 0.2s;
     }
-    
-    .btn-success:hover, .btn-danger:hover {
+    .btn-warning {
+        background-color: #f6c23e;
+        border-color: #f6c23e;
+        border-radius: 50px;
+        padding: 0.375rem 0.75rem;
+        font-size: 0.875rem;
+        transition: all 0.2s;
+    }
+    .btn-success:hover, .btn-danger:hover, .btn-warning:hover {
         transform: translateY(-1px);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
-    
     .form-control {
         border-radius: 50px;
         padding: 0.375rem 0.75rem;
         border: 1px solid #d1d3e2;
     }
-    
     .form-control:focus {
         border-color: #bac8f3;
         box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
     }
-    
     .pagination {
         justify-content: center;
         margin-top: 1.5rem;
     }
-    
     .page-item.active .page-link {
         background-color:rgb(93, 93, 95);
         border-color: #4e73df;
     }
-    
     .page-link {
         color: #4e73df;
     }
-    
     .action-buttons {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
     }
-    
     .message-cell {
         max-width: 200px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    
     .message-cell:hover {
         white-space: normal;
         overflow: visible;
@@ -146,6 +135,20 @@
 </style>
 
 <div class="container-fluid">
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+@if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between align-items-center">
             <h6 class="m-0 font-weight-bold text-white">Gestion des Rendez-vous</h6>
@@ -206,13 +209,40 @@
                                 @elseif ($rdv->statut === 'refusé')
                                     <span class="status-refus">Refusé</span>
                                 @else
-                                    {{ $rdv->date_visite }} à {{ $rdv->heure_visite }}
+                                    <div id="rdv-fields-{{ $rdv->id }}">
+                                        {{ $rdv->date_visite }} à {{ $rdv->heure_visite }}
+                                    </div>
+                                    <form action="{{ route('rdvs.update', $rdv->id) }}" method="POST" id="edit-form-{{ $rdv->id }}" class="d-none">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="form-group">
+                                            <label for="date_visite">Date de la visite :</label>
+                                            <input type="date" class="form-control" name="date_visite" value="{{ $rdv->date_visite }}" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="heure_visite">Heure de la visite :</label>
+                                            <input type="time" name="heure_visite" class="form-control" required>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="statut">Statut :</label>
+                                            <select class="form-control" name="statut">
+                                                <option value="en attente" {{ $rdv->statut == 'en attente' ? 'selected' : '' }}>En attente</option>
+                                                <option value="validé" {{ $rdv->statut == 'validé' ? 'selected' : '' }}>Validé</option>
+                                                <option value="refusé" {{ $rdv->statut == 'refusé' ? 'selected' : '' }}>Refusé</option>
+                                            </select>
+                                        </div>
+
+                                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                    </form>
                                 @endif
                             </td>
                             <td>
                                 <div class="action-buttons">
                                     @if ($rdv->statut === 'validé')
                                         <span class="status-valid">Confirmé</span>
+                                        <button type="button" class="btn btn-warning btn-block" onclick="enableEdit({{ $rdv->id }})">Modifier</button>
                                     @elseif ($rdv->statut === 'refusé')
                                         <span class="status-refus">Refusé</span>
                                     @else
@@ -236,4 +266,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    function enableEdit(id) {
+        document.getElementById('rdv-fields-' + id)?.classList.add('d-none');
+        document.getElementById('edit-form-' + id)?.classList.remove('d-none');
+    }
+</script>
+
 @endsection

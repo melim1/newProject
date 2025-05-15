@@ -482,4 +482,23 @@ class MessagesController extends Controller
             'status' => $status,
         ], 200);
     }
+
+
+
+
+
+
+
+
+
+public function versConversation($id)
+{
+    return redirect('/chatify/' . $id);
+}
+
+
+
+
+
+    
 }

@@ -92,10 +92,6 @@ Route::post('/rendez-vous', [RendezVousController::class, 'store'])->name('rende
 
 
 
-use App\Http\Controllers\ProfilController;
-
-Route::get('/profil', [ProfilController::class, 'index'])->name('app_profil')->middleware('auth');
-
 
 use App\Http\Controllers\HistoriqueController;
 Route::get('/historique', [HistoriqueController::class, 'index'])->name('app_historique')->middleware('auth');
@@ -109,7 +105,7 @@ Route::get('/messagerie', [MessagesController::class, 'index'])->name('messageri
 
 
 
-
+Route::get('/messagerie/{id}', [MessagesController::class, 'versConversation'])->name('messagerie.utilisateur');
 
 
 use App\Http\Controllers\NotificationController;
@@ -226,3 +222,70 @@ Route::middleware('auth:sanctum')->get('/user-info', function (Request $request)
         'phone' => $request->user()->phone
     ]);
 });
+
+
+
+
+
+use App\Http\Controllers\ProfilController;
+
+Route::get('/profil', [ProfilController::class, 'index'])->name('app_profil')->middleware('auth');
+
+
+
+Route::middleware(['auth'])->group(function () {
+    // Profil
+    Route::get('/profil', [ProfilController::class, 'show'])->name('app_profil');
+    Route::get('/profil/index', [ProfilController::class, 'index'])->name('profil.index');
+    Route::post('/profil/update', [ProfilController::class, 'update'])->name('profil.update');
+    
+    // Biens immobiliers
+    Route::post('/profil/biens', [ProfilController::class, 'storeBien'])->name('profil.storeBien');
+
+
+    Route::get('/profil/biens/{id}/edit', [ProfilController::class, 'edit'])->name('profil.biens.edit');
+    Route::put('/profil/biens/{id}', [ProfilController::class, 'updateImmob'])->name('profil.biens.update');
+
+
+
+  
+
+
+    Route::get('/profil/{id}', [ProfilController::class, 'destroy'])->name('profil.biens.destroy');
+
+
+});
+
+
+Route::post('/notifications/{notification}/mark-as-read', function ($notificationId) {
+    $notification = auth()->user()->notifications()->findOrFail($notificationId);
+    $notification->markAsRead();
+    
+    return response()->json(['success' => true]);
+})->middleware('auth');
+
+
+
+
+
+
+use App\Http\Controllers\EchangerController;
+
+Route::get('/echanger/search', [EchangerController::class, 'search'])
+     ->name('echanger.search'); // Nom cohérent avec le contrôleur
+
+
+
+     Route::get('/echange/create', [EchangerController::class, 'create'])->name('echange.create');
+Route::post('/echange', [EchangerController::class, 'store'])->name('echange.store');
+
+    
+
+Route::get('/offres-similaires/{id}', [EchangerController::class, 'offresSimilaires'])->name('offres.similaires');
+
+
+
+
+
+
+Route::get('/immobiliers/rechercher/{ref}', [ImmobilierController::class, 'rechercher'])->name('rechercher');

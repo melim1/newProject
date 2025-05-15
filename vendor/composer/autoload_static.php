@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
+class ComposerStaticInitb32810bf345132e8397338489bbae86e
 {
     public static $files = array (
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
@@ -560,6 +560,7 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
         'App\\Http\\Controllers\\ChatController' => __DIR__ . '/../..' . '/app/Http/Controllers/ChatController.php',
         'App\\Http\\Controllers\\CommentController' => __DIR__ . '/../..' . '/app/Http/Controllers/CommentController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\EchangerController' => __DIR__ . '/../..' . '/app/Http/Controllers/EchangerController.php',
         'App\\Http\\Controllers\\HistoriqueController' => __DIR__ . '/../..' . '/app/Http/Controllers/HistoriqueController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\ImmobilierController' => __DIR__ . '/../..' . '/app/Http/Controllers/ImmobilierController.php',
@@ -3428,6 +3429,7 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
         'Nette\\Schema\\Processor' => __DIR__ . '/..' . '/nette/schema/src/Schema/Processor.php',
         'Nette\\Schema\\Schema' => __DIR__ . '/..' . '/nette/schema/src/Schema/Schema.php',
         'Nette\\Schema\\ValidationException' => __DIR__ . '/..' . '/nette/schema/src/Schema/ValidationException.php',
+        'Nette\\ShouldNotHappenException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
         'Nette\\SmartObject' => __DIR__ . '/..' . '/nette/utils/src/SmartObject.php',
         'Nette\\StaticClass' => __DIR__ . '/..' . '/nette/utils/src/StaticClass.php',
         'Nette\\UnexpectedValueException' => __DIR__ . '/..' . '/nette/utils/src/exceptions.php',
@@ -6029,9 +6031,9 @@ class ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitfe33f98a750b8c5a51b30c78bd3fab21::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb32810bf345132e8397338489bbae86e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb32810bf345132e8397338489bbae86e::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb32810bf345132e8397338489bbae86e::$classMap;
 
         }, null, ClassLoader::class);
     }

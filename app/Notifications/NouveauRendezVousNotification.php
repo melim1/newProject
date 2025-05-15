@@ -28,7 +28,7 @@ class NouveauRendezVousNotification extends Notification implements ShouldQueue
         return (new MailMessage)
                     ->subject('Nouvelle demande de rendez-vous')
                     ->line('Une nouvelle demande de rendez-vous a été soumise.')
-                    ->action('Voir le rendez-vous', url('/admin/rendez-vous/'.$this->rendezVousId))
+                    ->action('Voir le rendez-vous', url('/rdvs/'.$this->rendezVousId))
                     ->line('Merci d\'utiliser notre application!');
     }
 
@@ -36,8 +36,18 @@ class NouveauRendezVousNotification extends Notification implements ShouldQueue
     {
         return [
             'rendez_vous_id' => $this->rendezVousId,
-            'message' => 'Nouvelle demande de rendez-vous reçue',
-            'link' => '/admin/rendez-vous/'.$this->rendezVousId
+            'message' => 'Nouvelle demande de rendez-vous reçue de ' . $this->rendezVous->nom_complet,
+            'link' => '/rdvs'.$this->rendezVousId,
+
+            'user_id' => $this->rendezVous->user_id,
+            'nom_complet' => $this->rendezVous->nom_complet,
+            'email' => $this->rendezVous->email,
+            'immobilier_id' => $this->rendezVous->immobilier_id,
+            'type' => $this->rendezVous->type,
+            'immobilier_photo' => $this->rendezVous->immobilier->user_image, // Récupérer l'URL de la photo
+
+     
         ];
     }
 }
+

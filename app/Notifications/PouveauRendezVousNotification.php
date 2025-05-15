@@ -41,7 +41,7 @@ class PouveauRendezVousNotification extends Notification implements ShouldQueue
         return [
             'rendez_vous_id' => $this->rendezVous->id,
             'message' => 'Nouvelle demande de rendez-vous de ' . $this->rendezVous->nom_complet,
-            'link' => '/admin/rendez-vous/' . $this->rendezVous->id,
+            'link' => '/rdvs/' . $this->rendezVous->id,
             'user_id' => $this->rendezVous->user_id,
             'nom_complet' => $this->rendezVous->nom_complet,
             'email' => $this->rendezVous->email,

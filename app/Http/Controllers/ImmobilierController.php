@@ -79,7 +79,7 @@ class ImmobilierController extends Controller
              $photos = $request->file('photos');
              foreach ($photos as $photo) {
                  $photoName = time() . $photo->getClientOriginalName();
-                 $photoPath = $photo->storeAs('images', $photoName, 'public');
+                 $photoPath = $photo->storeAs('images', $path, 'public');
                  $photosPaths[] = '/storage/' . $photoPath;  // Ajoute chaque chemin dans le tableau
              }
          }
@@ -87,8 +87,17 @@ class ImmobilierController extends Controller
          // Enregistrement des chemins des photos dans la base de données
          $requestData['photos'] = json_encode($photosPaths);  // Encode le tableau en JSON
      
-         Immobilier::create($requestData);  // Création de l'immobilier avec toutes les données
-     
+         Immobilier::create([
+            'user_id' => auth()->id(),
+            'adresse' => $requestData['adresse'],
+            'type' => $requestData['type'],
+            'prix' => $requestData['prix'],
+            'surface' => $requestData['surface'],
+            'user_image' => '/storage/' . $path,
+            'description' => $requestData['description'],
+            'photos' => json_encode(array_map(fn($path) => '/storage/' . $path, $photosPaths))
+        ]);
+    
          return redirect()->route('immobiliers.index')
              ->with('success', 'Immobilier créé avec succès.');
      }
@@ -284,13 +293,28 @@ public function prendreRdv($id): View
 
 
 public function echanger()
-    {
-        // Récupérer les biens de type "location"
-        $immobiliers = Immobilier::where('type', 'echange')->get();
-    
-        // Passer les données à la vue
-        return view('accueil.echanger', compact('immobiliers'));
+{
+    $immobiliers = Immobilier::where('type', 'echange')->get();
+
+    // Optionnel : exemple si tu veux calculer des propositions pour un des échanges (ex : le premier)
+    $propositions = [];
+
+    foreach ($immobiliers as $immobilier) {
+        $caracs = json_decode($immobilier->caracteristiques_souhaitees, true);
+
+        $matched = Immobilier::where('type', 'echange')
+            ->where('user_id', '!=', $immobilier->user_id)
+           // ->where('adresse', 'LIKE', '%' . $caracs['adresse'] . '%')
+           // ->where('prix', '<=', $caracs['prix_max'])
+           // ->where('surface', '>=', $caracs['surface_min'])
+            ->get();
+
+        $propositions[$immobilier->id] = $matched;
     }
+
+    return view('accueil.echanger', compact('immobiliers', 'propositions'));
+}
+
 
 
 
@@ -305,5 +329,26 @@ public function echanger()
     // Retourne la vue avec les détails du bien immobilier
     return view('echange.detail', compact('immobilier'));
 }
+
+
+
+
+
+public function rechercher($ref)
+{
+    $immobilier = Immobilier::where('id', $ref)->first();
+
+    if (!$immobilier) {
+        return response()->json(['error' => 'Non trouvé'], 404);
+    }
+
+    // Supposons que tu as une relation images()
+    return view('echange.detail', compact('immobilier'));
+ 
+}
+
+
+
+
 
 }
