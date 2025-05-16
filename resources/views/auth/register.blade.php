@@ -7,8 +7,6 @@
     <title>Inscription</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <style>
         body {
             margin: 0;
@@ -125,60 +123,44 @@
     <div class="register-section">
         <div class="register-form">
             <div class="register-header">
-                <h3><i class="bi bi-person-plus me-2"></i>Inscription</h3>
+                <h3>Inscription</h3>
             </div>
             <form method="POST" action="{{ route('register') }}">
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Nom</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="bi bi-person"></i></span>
-                        <input id="name" type="text" class="form-control" name="name" required autocomplete="name"
-                            autofocus placeholder="Entrez votre nom">
-                    </div>
+                    <input id="name" type="text" class="form-control" name="name" required autocomplete="name" autofocus
+                        placeholder="Entrez votre nom">
                 </div>
                 <div class="mb-3">
-                    <label for="email_or_phone" class="form-label">Adresse e-mail</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="bi bi-envelope-at"></i></span>
-                        <input id="email_or_phone" type="text" class="form-control" name="email_or_phone" required
-                            autocomplete="email_or_phone" placeholder="Entrez votre e-mail">
-                    </div>
-                </div>
-                <div class="mb-3">
+    <label for="email" class="form-label">Adresse e-mail</label>
+    <input id="email" type="email" class="form-control" name="email" required placeholder="Entrez votre e-mail">
+</div>
+
+<div class="mb-3">
+    <label for="phone" class="form-label">Numéro de téléphone</label>
+    <input id="phone" type="text" class="form-control" name="phone" required placeholder="Entrez votre numéro de téléphone">
+</div> <div class="mb-3">
                     <label for="password" class="form-label">Mot de passe</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="bi bi-lock"></i></span>
-                        <input id="password" type="password" class="form-control" name="password" required
-                            autocomplete="new-password" placeholder="Entrez votre mot de passe">
-                    </div>
+                    <input id="password" type="password" class="form-control" name="password" required
+                        autocomplete="new-password" placeholder="Entrez votre mot de passe">
                 </div>
                 <div class="mb-3">
                     <label for="password-confirm" class="form-label">Confirmez le mot de passe</label>
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
-                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
-                            required autocomplete="new-password" placeholder="Confirmez votre mot de passe">
-                    </div>
+                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
+                        required autocomplete="new-password" placeholder="Confirmez votre mot de passe">
                 </div>
                 <div class="d-grid gap-2">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-check-circle me-2"></i>S'inscrire
-                    </button>
+                    <button type="submit" class="btn btn-primary">S'inscrire</button>
                 </div>
                 <div class="text-center mt-3">
-                    <p>
-                        Vous avez déjà un compte ?
-                        <a href="{{ route('login') }}" class="btn-link">
-                            <i class="bi bi-box-arrow-in-right"></i> Se connecter
-                        </a>
-                    </p>
+                    <p>Vous avez déjà un compte ? <a href="{{ route('login') }}" class="btn-link">Se connecter</a></p>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
+    <!-- Bootstrap JS (optionnel) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 

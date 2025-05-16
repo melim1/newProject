@@ -11,7 +11,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.6",
-        "munafio/chatify": "^1.6",
+        "munafio/chatify": "*",
         "pusher/pusher-php-server": "^7.2",
         "spatie/laravel-permission": "^6.16"
     },

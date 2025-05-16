@@ -293,10 +293,10 @@
                     <span>Immobilier</span>
                 </a>
 
-           
+
 
                 <a href="{{ route('notification.index') }}">
-                    <i class="fas fa-building"></i>
+                    <i class="fas fa-bell"></i>
                     <span>Notification</span>
                 </a>
 
@@ -313,25 +313,25 @@
                 <ul class="navbar-nav ms-auto">
                     <!-- Messagerie -->
                     <li class="nav-item">
-                                <a class="nav-link nav-icon" href="{{ route('messagerie') }}">
-                                    <i class="fas fa-envelope"></i>
-                                            @if($unseenCounter > 0)
-                                          <span class="notification-badge">{{ $unseenCounter }}</span>
-                                           @endif
-                                </a>
-                            </li>
+                        <a class="nav-link nav-icon" href="{{ route('messagerie') }}">
+                            <i class="fas fa-envelope"></i>
+                            @if($unseenCounter > 0)
+                                <span class="notification-badge">{{ $unseenCounter }}</span>
+                            @endif
+                        </a>
+                    </li>
 
 
-                
-                    
+
+
 
 
 
                     <li class="nav-item">
-                    <a class="nav-link nav-icon" href="{{ route('notification.index') }}">
-       
+                        <a class="nav-link nav-icon" href="{{ route('notification.index') }}">
+
                             <i class="fas fa-bell"></i>
-<span class="notification-badge">{{ Auth::user()->unreadNotifications->count() }}</span>
+                            <span class="notification-badge">{{ Auth::user()->unreadNotifications->count() }}</span>
                         </a>
                     </li>
 

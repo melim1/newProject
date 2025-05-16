@@ -46,14 +46,17 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email_or_phone' => ['required', 'string', 'max:255', 'unique:users,email', 'unique:users,phone'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-    }
+ protected function validator(array $data)
+{
+    return Validator::make($data, [
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+        'phone' => ['required', 'string', 'max:20', 'unique:users,phone'],
+        'password' => ['required', 'string', 'min:8', 'confirmed'],
+    ]);
+}
+
+
 
     /**
      * Create a new user instance after a valid registration.
@@ -61,22 +64,19 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\Models\User
      */
-    protected function create(array $data)
-    {
-        $userData = [
-            'name' => $data['name'],
-            'password' => Hash::make($data['password']),
-        ];
-    
-        // Vérifie si l'input est un email ou un numéro de téléphone
-        if (filter_var($data['email_or_phone'], FILTER_VALIDATE_EMAIL)) {
-            $userData['email'] = $data['email_or_phone'];
-        } else {
-            $userData['phone'] = $data['email_or_phone'];
-        }
-    
-        return User::create($userData);
-    }
+ protected function create(array $data)
+{
+    return User::create([
+        'name' => $data['name'],
+        'email' => $data['email'],
+        'phone' => $data['phone'],
+        'password' => Hash::make($data['password']),
+    ]);
+}
+
+
+
+
       /**
      * Redirige l'utilisateur après l'inscription.
      *
