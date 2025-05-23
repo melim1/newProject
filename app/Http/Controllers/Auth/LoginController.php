@@ -58,6 +58,6 @@ class LoginController extends Controller
         }
 
         // Si l'utilisateur n'a pas le rôle 'Admin', rediriger vers la page 'accueil/home.blade.php'
-        return redirect()->route('accueil.home'); // Cette route doit correspondre à la page d'accueil (home.blade.php)
+        return redirect()->route('app_accueil'); // Cette route doit correspondre à la page d'accueil (home.blade.php)
     }
 }

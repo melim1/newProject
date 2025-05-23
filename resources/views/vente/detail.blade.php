@@ -577,8 +577,20 @@
         <i class="fas fa-vr-cardboard"></i> Visite virtuelle
     </a>
     <a href="{{ route('app_acheter') }}" class="btn btn-primary">Retour à la liste</a>
-    @auth
-        <button id="btn-rdv" class="btn btn-primary">Demander un rendez-vous</button>
+    
+    
+      @auth
+         @php
+        $isOwnProperty = auth()->id() === $immobilier->user_id;
+    @endphp
+
+            
+           <button 
+        class="btn btn-primary"  id="btn-rdv" 
+        @if($isOwnProperty) disabled title="Vous ne pouvez pas demander un rdv pour votre immobilier ."
+          @endif
+    >
+        Demander un rendez-vous</button>
     @else
         <a href="{{ route('login') }}" class="btn btn-primary">Connectez-vous pour un RDV</a>
     @endauth

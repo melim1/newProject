@@ -557,13 +557,25 @@
         <i class="fas fa-vr-cardboard"></i> Visite virtuelle
     </a>
     <a href="{{ route('app_echanger') }}" class="btn btn-primary">Retour à la liste</a>
-    @auth
+   
 
- 
-    <a  href="{{ url('chatify/' . $immobilier->user_id) }}"class="btn btn-primary">Envoyer un message </a>
-    @else
-        <a href="{{ route('login') }}" class="btn btn-primary">Connectez-vous pour envoyer message </a>
-    @endauth
+
+
+    @auth
+    @php
+        $isOwnProperty = auth()->id() === $immobilier->user_id;
+    @endphp
+
+    <button 
+        class="btn btn-primary" 
+        @if($isOwnProperty) disabled title="Vous ne pouvez pas faire un échange avec vous-même." @else onclick="window.location='{{ url('chatify/' . $immobilier->user_id) }}'" @endif
+    >
+        Envoyer un message
+    </button>
+@else
+    <a href="{{ route('login') }}" class="btn btn-primary">Connectez-vous pour envoyer un message</a>
+@endauth
+
 </div>
 
 

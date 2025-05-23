@@ -28,7 +28,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -50,8 +50,25 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email_or_phone' => ['required', 'string', 'max:255', 'unique:users,email', 'unique:users,phone'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => [
+                'required',
+                'string',
+                'regex:/^(05|06|07)[0-9]{8}$/',
+                'unique:users'
+            ],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            'name.required' => 'Le nom complet est obligatoire',
+            'email.required' => 'L\'adresse email est obligatoire',
+            'email.email' => 'L\'adresse email n\'est pas valide',
+            'email.unique' => 'Cet email est déjà utilisé',
+            'phone.required' => 'Le numéro de téléphone est obligatoire',
+            'phone.regex' => 'Le numéro doit commencer par 05, 06 ou 07 et contenir 10 chiffres',
+            'phone.unique' => 'Ce numéro de téléphone est déjà utilisé',
+            'password.required' => 'Le mot de passe est obligatoire',
+            'password.min' => 'Le mot de passe doit contenir au moins 8 caractères',
+            'password.confirmed' => 'Les mots de passe ne correspondent pas',
         ]);
     }
 
@@ -63,30 +80,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $userData = [
+        return User::create([
             'name' => $data['name'],
+            'email' => $data['email'],
+            'phone' => $data['phone'],
             'password' => Hash::make($data['password']),
-        ];
-    
-        // Vérifie si l'input est un email ou un numéro de téléphone
-        if (filter_var($data['email_or_phone'], FILTER_VALIDATE_EMAIL)) {
-            $userData['email'] = $data['email_or_phone'];
-        } else {
-            $userData['phone'] = $data['email_or_phone'];
-        }
-    
-        return User::create($userData);
-    }
-      /**
-     * Redirige l'utilisateur après l'inscription.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User $user
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    protected function registered($request, $user)
-    {
-        // Redirection vers la page d'accueil après l'inscription
-        return redirect()->route('accueil.home'); // Cette route doit pointer vers 'accueil.home'
+        ]);
     }
 }

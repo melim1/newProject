@@ -35,7 +35,7 @@ class ImmobilierController extends Controller
     }
 
 
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -60,19 +60,19 @@ class ImmobilierController extends Controller
              "type" => 'required|max:255',
              "prix" => 'numeric',
              "surface" => 'numeric',
-             "user_image" => 'required|image|mimes:jpeg,png,jpg|max:5120',
+             "user_image" => 'required|image|mimes:jpeg,png,jpg',
              "description" => 'required|max:255',
              'photos' => 'required|array|max:5',  // La validation des images multiples
              'photos.*' => 'image|mimes:jpg,png,jpeg|max:5120',  // Chaque image doit être valide
          ]);
-     
+
          $requestData = $request->all();
-     
+
          // Upload de l'image principale
          $fileName = time() . $request->file('user_image')->getClientOriginalName();
          $path = $request->file('user_image')->storeAs('images', $fileName, 'public');
          $requestData['user_image'] = '/storage/' . $path;
-     
+
          // Upload des images multiples et stockage des chemins
          $photosPaths = [];
          if ($request->hasFile('photos')) {
@@ -83,10 +83,10 @@ class ImmobilierController extends Controller
                  $photosPaths[] = '/storage/' . $photoPath;  // Ajoute chaque chemin dans le tableau
              }
          }
-     
+
          // Enregistrement des chemins des photos dans la base de données
          $requestData['photos'] = json_encode($photosPaths);  // Encode le tableau en JSON
-     
+
          Immobilier::create([
             'user_id' => auth()->id(),
             'adresse' => $requestData['adresse'],
@@ -97,11 +97,11 @@ class ImmobilierController extends Controller
             'description' => $requestData['description'],
             'photos' => json_encode(array_map(fn($path) => '/storage/' . $path, $photosPaths))
         ]);
-    
+
          return redirect()->route('immobiliers.index')
              ->with('success', 'Immobilier créé avec succès.');
      }
-     
+
 
 
     /**
@@ -232,7 +232,7 @@ class ImmobilierController extends Controller
     {
         // Récupérer les biens de type "location"
         $immobiliers = Immobilier::where('type', 'location')->get();
-    
+
         // Passer les données à la vue
         return view('accueil.louer', compact('immobiliers'));
     }
@@ -344,7 +344,49 @@ public function rechercher($ref)
 
     // Supposons que tu as une relation images()
     return view('echange.detail', compact('immobilier'));
- 
+
+}
+
+public function indexAccueil()
+{
+    $query = Immobilier::query();
+    $searchPerformed = false;
+
+    if (request()->hasAny(['type', 'budget', 'adresse'])) {
+        $searchPerformed = true;
+
+        // Filtrer par type (louer, achat, etc.)
+        if ($type = request('type')) {
+            $query->where('type', $type);
+        }
+
+        // Filtrer par budget maximal
+        if ($budget = request('budget')) {
+            $query->where('prix', '<=', (float) $budget);
+        }
+
+        // Filtrer par adresse partielle
+        if ($adresse = request('adresse')) {
+            $query->where('adresse', 'LIKE', "%{$adresse}%");
+        }
+    }
+
+    $immobiliers = $query->paginate(6)->withQueryString();
+
+    // Suggestions : autres biens aléatoires différents de ceux déjà affichés
+    $suggestions = collect();
+    if ($searchPerformed && $immobiliers->count() > 0) {
+        $idsAffiches = $immobiliers->pluck('id')->toArray();
+        $suggestions = Immobilier::whereNotIn('id', $idsAffiches)
+                        ->inRandomOrder()
+                        ->take(4)
+                        ->get();
+    }
+    return view('accueil.home', [
+        'immobiliers' => $immobiliers,
+        'searchPerformed' => $searchPerformed,
+        'suggestions' => $suggestions,
+    ]);
 }
 
 

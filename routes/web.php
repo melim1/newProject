@@ -18,11 +18,9 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-    return view('accueil.home');
-})->name('app_accueil');
 
 
+Route::get('/', [ImmobilierController::class, 'indexAccueil'])->name('app_accueil');
 
 
 

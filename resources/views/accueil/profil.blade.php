@@ -222,7 +222,7 @@
                                 <strong>Adresse:</strong> {{ $bien->adresse }}<br>
                                 <strong>Prix:</strong> {{ number_format($bien->prix, 0, ',', ' ') }} DA<br>
                                 <strong>Surface:</strong> {{ $bien->surface }} m²<br>
-                           
+                           <strong>Id de bien:</strong> {{ $bien->id }} <br>
                            
                            
         @php
